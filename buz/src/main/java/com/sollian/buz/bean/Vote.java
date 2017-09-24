@@ -5,6 +5,9 @@ package com.sollian.buz.bean;
  */
 
 public class Vote {
+    public static final int SINGLE_VOTE = 0;
+    public static final int MULTI_VOTE  = 1;
+
     // 投票标识id
     private int      vid;
     // 投票标题

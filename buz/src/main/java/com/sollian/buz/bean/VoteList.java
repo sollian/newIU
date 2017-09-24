@@ -1,5 +1,10 @@
 package com.sollian.buz.bean;
 
+import android.support.annotation.StringDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * @author sollian on 2017/9/20.
  */
@@ -15,6 +20,11 @@ public class VoteList {
     public static final String HOT  = "hot";
     //全部
     public static final String ALL  = "all";
+
+    @StringDef({NEW, ME, JOIN, HOT, ALL})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface VoteType {
+    }
 
     // 所查询的投票列表的投票元数据构成的数组
     private Vote[]     votes;

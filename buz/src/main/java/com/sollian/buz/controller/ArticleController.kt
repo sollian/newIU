@@ -13,7 +13,7 @@ class ArticleController : AbsController() {
     }
 
     fun asyncGet(board: String, id: Int,
-                        consumer: ((response: ArticleResponse) -> Unit)?) {
+                 consumer: ((response: ArticleResponse) -> Unit)?) {
         getObservable("$API_ARTICLE$board/$id$FORMAT?$APP_KEY")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { response ->
@@ -21,8 +21,16 @@ class ArticleController : AbsController() {
                 }
     }
 
+    /**
+     * 发布新文章/主题
+     *
+     * @param board
+     * @param title 新文章的标题
+     * @param content 新文章的内容，可以为空
+     * @param reid 新文章回复其他文章的id
+     */
     fun asyncSend(board: String, title: String, content: String, reid: String?,
-                         consumer: ((response: ArticleResponse) -> Unit)?) {
+                  consumer: ((response: ArticleResponse) -> Unit)?) {
         val params = hashMapOf<String, String>(
                 "title" to title,
                 "content" to content
@@ -38,8 +46,15 @@ class ArticleController : AbsController() {
                 }
     }
 
+    /**
+     * 转载文章
+     *
+     * @param board 文章所在版面
+     * @param id 文章ID
+     * @param target 要转载的版面
+     */
     fun asyncCross(board: String, id: Int, target: String,
-                          consumer: ((response: ArticleResponse) -> Unit)?) {
+                   consumer: ((response: ArticleResponse) -> Unit)?) {
         val params = mapOf<String, String>(
                 "target" to target
         )
@@ -51,8 +66,15 @@ class ArticleController : AbsController() {
                 }
     }
 
+    /**
+     * 转寄文章
+     *
+     * @param board 文章所在版面
+     * @param id 文章ID
+     * @param target 收件人ID
+     */
     fun asyncForward(board: String, id: Int, target: String,
-                            consumer: ((response: ArticleResponse) -> Unit)?) {
+                     consumer: ((response: ArticleResponse) -> Unit)?) {
         val params = mapOf<String, String>(
                 "target" to target
         )
@@ -64,8 +86,16 @@ class ArticleController : AbsController() {
                 }
     }
 
+    /**
+     * 更新指定文章/主题
+     *
+     * @param board 合法的版面名称
+     * @param id 文章或主题id
+     * @param title 修改后的文章标题
+     * @param content 修改后的文章内容
+     */
     fun asyncUpdate(board: String, id: Int, title: String, content: String,
-                           consumer: ((response: ArticleResponse) -> Unit)?) {
+                    consumer: ((response: ArticleResponse) -> Unit)?) {
         val params = mapOf<String, String>(
                 "title" to title,
                 "content" to content
@@ -78,8 +108,14 @@ class ArticleController : AbsController() {
                 }
     }
 
+    /**
+     * 删除指定文章
+     *
+     * @param board 合法的版面名称
+     * @param id 文章或主题id
+     */
     fun asyncDelete(board: String, id: Int,
-                           consumer: ((response: ArticleResponse) -> Unit)?) {
+                    consumer: ((response: ArticleResponse) -> Unit)?) {
         postObservable("$API_ARTICLE$board/delete/$id$FORMAT?$APP_KEY", null)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { response ->

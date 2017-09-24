@@ -6,6 +6,7 @@ import io.reactivex.ObservableOnSubscribe
 import io.reactivex.schedulers.Schedulers
 import okhttp3.*
 import java.io.File
+import java.lang.IllegalArgumentException
 
 /**
  * @author sollian on 2017/9/22.
@@ -27,11 +28,19 @@ abstract class AbsController {
         return genObservable(request)
     }
 
-    fun postObservable(url: String, params: Map<String, String>?): Observable<Response> {
+    fun postObservable(url: String, params: Map<String, Any>?): Observable<Response> {
         val formBody = FormBody.Builder()
         if (params != null && !params.isEmpty()) {
             for ((key, value) in params) {
-                formBody.add(key, value)
+                if (value is String)
+                    formBody.add(key, value)
+                else if (value is Array<*>)
+                    value.forEach {
+                        if (it is String) formBody.add(key, it)
+                        else throw IllegalArgumentException("不支持的参数")
+
+                    }
+                else throw IllegalArgumentException("不支持的参数")
             }
         }
 

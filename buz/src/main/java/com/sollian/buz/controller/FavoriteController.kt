@@ -1,7 +1,6 @@
 package com.sollian.buz.controller
 
 import com.sollian.buz.response.FavoriteResponse
-import com.sollian.buz.response.UserResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 /**
@@ -20,6 +19,11 @@ class FavoriteController : AbsController() {
                 }
     }
 
+    /**
+     * @param level
+     * @param name
+     * @param dir     是否为自定义目录：0不是，1是
+     */
     fun asyncAdd(level: Int, name: String, dir: Int = 0,
                  consumer: ((response: FavoriteResponse) -> Unit)?) {
         val params = mapOf<String, String>(
