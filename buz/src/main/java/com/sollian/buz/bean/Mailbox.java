@@ -1,5 +1,11 @@
 package com.sollian.buz.bean;
 
+import android.support.annotation.IntDef;
+import android.support.annotation.StringDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * @author sollian on 2017/9/20.
  */
@@ -11,6 +17,11 @@ public class Mailbox {
     public static final String OUTBOX  = "outbox";
     //回收站
     public static final String DELETED = "deleted";
+
+    @StringDef({INBOX, OUTBOX, DELETED})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface BoxType {
+    }
 
     // 是否有新邮件
     private boolean new_mail;

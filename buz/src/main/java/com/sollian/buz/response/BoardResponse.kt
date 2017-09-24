@@ -2,10 +2,11 @@ package com.sollian.buz.response
 
 import com.sollian.base.Utils.JsonUtil
 import com.sollian.buz.bean.Article
+import com.sollian.buz.bean.Board
 
 /**
  * @author sollian on 2017/9/22.
  */
-class ArticleResponse(json: String?) : AbsResponse<Article>(json) {
-    override fun getObjClass() = Article::class.java
+class BoardResponse(json: String?) : AbsResponse<Board>(json) {
+    override fun getObjClass() = Board::class.java
 }

@@ -12,7 +12,7 @@ class ArticleController : AbsController() {
         private val API_ARTICLE = API_HEAD + "/article/"
     }
 
-    fun asyncGetArticle(board: String, id: Int,
+    fun asyncGet(board: String, id: Int,
                         consumer: ((response: ArticleResponse) -> Unit)?) {
         getObservable("$API_ARTICLE$board/$id$FORMAT?$APP_KEY")
                 .observeOn(AndroidSchedulers.mainThread())
@@ -21,7 +21,7 @@ class ArticleController : AbsController() {
                 }
     }
 
-    fun asyncSendArticle(board: String, title: String, content: String, reid: String?,
+    fun asyncSend(board: String, title: String, content: String, reid: String?,
                          consumer: ((response: ArticleResponse) -> Unit)?) {
         val params = hashMapOf<String, String>(
                 "title" to title,
@@ -38,7 +38,7 @@ class ArticleController : AbsController() {
                 }
     }
 
-    fun asyncCrossArticle(board: String, id: Int, target: String,
+    fun asyncCross(board: String, id: Int, target: String,
                           consumer: ((response: ArticleResponse) -> Unit)?) {
         val params = mapOf<String, String>(
                 "target" to target
@@ -51,7 +51,7 @@ class ArticleController : AbsController() {
                 }
     }
 
-    fun asyncForwardArticle(board: String, id: Int, target: String,
+    fun asyncForward(board: String, id: Int, target: String,
                             consumer: ((response: ArticleResponse) -> Unit)?) {
         val params = mapOf<String, String>(
                 "target" to target
@@ -64,7 +64,7 @@ class ArticleController : AbsController() {
                 }
     }
 
-    fun asyncUpdateArticle(board: String, id: Int, title: String, content: String,
+    fun asyncUpdate(board: String, id: Int, title: String, content: String,
                            consumer: ((response: ArticleResponse) -> Unit)?) {
         val params = mapOf<String, String>(
                 "title" to title,
@@ -78,7 +78,7 @@ class ArticleController : AbsController() {
                 }
     }
 
-    fun asyncDeleteArticle(board: String, id: Int,
+    fun asyncDelete(board: String, id: Int,
                            consumer: ((response: ArticleResponse) -> Unit)?) {
         postObservable("$API_ARTICLE$board/delete/$id$FORMAT?$APP_KEY", null)
                 .observeOn(AndroidSchedulers.mainThread())

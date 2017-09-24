@@ -1,5 +1,10 @@
 package com.sollian.buz.bean;
 
+import android.support.annotation.StringDef;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
 /**
  * @author sollian on 2017/9/20.
  */
@@ -9,6 +14,11 @@ public class Refer {
     public static final String AT    = "at";
     //回复我的消息
     public static final String REPLY = "reply";
+
+    @StringDef({AT, REPLY})
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface ReferType {
+    }
 
     // 提醒编号，此编号用于提醒的相关操作
     private int     index;

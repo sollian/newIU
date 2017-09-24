@@ -4,9 +4,8 @@ import com.sollian.buz.http.IUHttpManager
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.schedulers.Schedulers
-import okhttp3.FormBody
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
+import java.io.File
 
 /**
  * @author sollian on 2017/9/22.
@@ -44,9 +43,17 @@ abstract class AbsController {
         return genObservable(request)
     }
 
-//    fun postFileObservable(url:String): Observable<Response> {
-//
-//    }
+    fun postFileObservable(url: String, file: File): Observable<Response> {
+        val body = MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("file", file.name, RequestBody.create(null, file))
+                .build()
+        val request = Request.Builder()
+                .url(url)
+                .post(body)
+                .build()
+        return genObservable(request)
+    }
 
     private fun genObservable(request: Request) =
             Observable.create(ObservableOnSubscribe<Response> { e ->

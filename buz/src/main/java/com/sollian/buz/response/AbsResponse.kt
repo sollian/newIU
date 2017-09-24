@@ -2,15 +2,26 @@ package com.sollian.buz.response
 
 import android.text.TextUtils
 import com.sollian.base.Utils.BaseContext
+import com.sollian.base.Utils.JsonUtil
 import com.sollian.buz.R
+import com.sollian.buz.bean.Board
+import com.sollian.buz.bean.User
 import org.json.JSONException
 import org.json.JSONObject
 
 /**
  * @author sollian on 2017/9/22.
  */
-abstract class AbsResponse(val json: String?) {
+abstract  class AbsResponse<T>(val json: String?) {
     var desc: String? = null
+    var obj: T? = null
+
+    init {
+        obj = JsonUtil.parse(json, getObjClass())
+        checkError(obj)
+    }
+
+    abstract fun getObjClass():Class<T>
 
     fun checkError(obj: Any?) {
         if (obj != null) return
