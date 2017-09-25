@@ -4,15 +4,13 @@ import android.text.TextUtils
 import com.sollian.base.Utils.BaseContext
 import com.sollian.base.Utils.JsonUtil
 import com.sollian.buz.R
-import com.sollian.buz.bean.Board
-import com.sollian.buz.bean.User
 import org.json.JSONException
 import org.json.JSONObject
 
 /**
  * @author sollian on 2017/9/22.
  */
-abstract  class AbsResponse<T>(val json: String?) {
+abstract class AbsResponse<T>(val json: String?) {
     var desc: String? = null
     var obj: T? = null
 
@@ -21,7 +19,7 @@ abstract  class AbsResponse<T>(val json: String?) {
         checkError(obj)
     }
 
-    abstract fun getObjClass():Class<T>
+    abstract fun getObjClass(): Class<T>
 
     fun checkError(obj: Any?) {
         if (obj != null) return

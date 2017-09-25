@@ -6,7 +6,7 @@ package com.sollian.buz.bean;
 
 public class Search {
     private Pagination pagination;
-    private Article[] threads;
+    private Article[]  threads;
 
     public Pagination getPagination() {
         return pagination;

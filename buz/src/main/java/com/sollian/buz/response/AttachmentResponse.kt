@@ -1,6 +1,5 @@
 package com.sollian.buz.response
 
-import com.sollian.base.Utils.JsonUtil
 import com.sollian.buz.bean.Attachment
 
 /**

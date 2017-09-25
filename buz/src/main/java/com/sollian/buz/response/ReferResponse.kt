@@ -1,6 +1,5 @@
 package com.sollian.buz.response
 
-import com.sollian.buz.bean.Mail
 import com.sollian.buz.bean.Refer
 
 /**

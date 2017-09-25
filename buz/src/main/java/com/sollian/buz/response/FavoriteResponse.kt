@@ -1,7 +1,6 @@
 package com.sollian.buz.response
 
 import com.sollian.buz.bean.Favorite
-import com.sollian.buz.bean.User
 
 /**
  * @author sollian on 2017/9/22.
