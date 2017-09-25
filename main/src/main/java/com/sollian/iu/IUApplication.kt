@@ -2,6 +2,8 @@ package com.sollian.iu
 
 import android.app.Application
 import com.sollian.base.Utils.BaseContext
+import com.sollian.buz.http.IUHttpManager
+import com.sollian.buz.sharepref.SharePrefs
 
 /**
  * @author sollian on 2017/9/22.
@@ -16,5 +18,6 @@ class IUApplication : Application() {
         instance = this
 
         BaseContext.initContext(this)
+        IUHttpManager.instance.initUserInfo(SharePrefs.name, SharePrefs.password)
     }
 }
