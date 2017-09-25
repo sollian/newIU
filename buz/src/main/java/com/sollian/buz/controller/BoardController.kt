@@ -1,7 +1,9 @@
 package com.sollian.buz.controller
 
-import com.sollian.buz.response.UserResponse
+import com.sollian.buz.dao.BoardDB
+import com.sollian.buz.response.BoardResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 /**
  * @author solli on 2017/9/23.
@@ -19,11 +21,21 @@ class BoardController : AbsController() {
      * @param page 文章的页数
      */
     fun asyncGet(name: String, page: Int,
-                 consumer: ((response: UserResponse) -> Unit)?) {
+                 consumer: ((response: BoardResponse) -> Unit)?) {
         getObservable("$API_BOARD$name$FORMAT?page=$page&$APP_KEY")
+                .observeOn(Schedulers.io())
+                .map {
+                    val boardResponse = BoardResponse(getJson(it))
+                    if (boardResponse.success()) {
+                        BoardDB.insertOrUpdate(boardResponse.obj!!)
+                    }
+                    boardResponse
+                }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { response ->
-                    consumer?.invoke(UserResponse(getJson(response)))
+                .subscribe {
+                    consumer?.invoke(it)
                 }
     }
+
+    fun syncGet(name: String) = BoardDB.queryByName(name)
 }

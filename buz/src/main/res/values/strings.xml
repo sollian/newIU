@@ -1,3 +1,4 @@
 <resources>
     <string name="unknown_error">未知错误</string>
+    <string name="invalid_user">原贴已删除</string>
 </resources>

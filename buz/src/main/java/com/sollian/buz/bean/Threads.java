@@ -1,9 +1,10 @@
 package com.sollian.buz.bean;
 
 /**
+ * 主题帖元数据
+ *
  * @author sollian on 2017/9/20.
  */
-
 public class Threads {
     private int     id;
     private int     group_id;

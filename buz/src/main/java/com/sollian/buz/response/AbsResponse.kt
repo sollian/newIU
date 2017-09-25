@@ -38,5 +38,5 @@ abstract class AbsResponse<T>(val json: String?) {
         }
     }
 
-    fun success() = TextUtils.isEmpty(desc)
+    fun success() = TextUtils.isEmpty(desc)// && obj != null
 }

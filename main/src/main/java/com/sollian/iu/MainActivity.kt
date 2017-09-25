@@ -8,7 +8,7 @@ import com.sollian.base.kotlinext.DelegatesExt
 import com.sollian.buz.controller.UserController
 import com.sollian.buz.http.IUHttpManager
 import com.sollian.buz.response.UserResponse
-import com.sollian.buz.sharepref.PrefKeys
+import com.sollian.buz.sharepref.SharePrefs
 
 class MainActivity : FragmentActivity() {
 
@@ -17,8 +17,7 @@ class MainActivity : FragmentActivity() {
         setContentView(R.layout.activity_main)
 
         IUHttpManager.instance.initUserInfo("sollian", "111111")
-        var name: String? by DelegatesExt.preference(this, PrefKeys.USER_NAME, null)
-        name = "sollian"
+        SharePrefs.name = "sollian"
     }
 
     fun login(view: View) {

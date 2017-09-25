@@ -1,11 +1,26 @@
 package com.sollian.buz.bean;
 
+import com.sollian.base.annotation.Local;
+
+import org.greenrobot.greendao.DaoException;
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
+import org.greenrobot.greendao.annotation.Transient;
+
 /**
  * @author sollian on 2017/9/4.
  */
-
+@Entity(
+        active = true
+)
 public class Article {
+    @Id(autoincrement = true)
+    private Long gId;
+
     // 文章id
+    @Index(unique = true)
     private int     id;
     // 该文章所属主题的id
     private int     group_id;
@@ -43,8 +58,55 @@ public class Article {
     /**
      * 附加
      */
+    @Transient
     private User       user;
+    @Transient
     private Attachment attachment;
+    @Local
+    private String     userId;
+
+    /**
+     * Used to resolve relations
+     */
+    @Generated(hash = 2040040024)
+    private transient DaoSession daoSession;
+
+    /**
+     * Used for active entity operations.
+     */
+    @Generated(hash = 434328755)
+    private transient ArticleDao myDao;
+
+    @Generated(hash = 1273310861)
+    public Article(Long gId, int id, int group_id, int reply_id, String flag,
+            boolean is_top, boolean is_subject, boolean has_attachment,
+            boolean is_admin, String title, long post_time, String board_name,
+            String content, int previous_id, int next_id, int threads_previous_id,
+            int threads_next_id, int reply_count, String userId) {
+        this.gId = gId;
+        this.id = id;
+        this.group_id = group_id;
+        this.reply_id = reply_id;
+        this.flag = flag;
+        this.is_top = is_top;
+        this.is_subject = is_subject;
+        this.has_attachment = has_attachment;
+        this.is_admin = is_admin;
+        this.title = title;
+        this.post_time = post_time;
+        this.board_name = board_name;
+        this.content = content;
+        this.previous_id = previous_id;
+        this.next_id = next_id;
+        this.threads_previous_id = threads_previous_id;
+        this.threads_next_id = threads_next_id;
+        this.reply_count = reply_count;
+        this.userId = userId;
+    }
+
+    @Generated(hash = 742516792)
+    public Article() {
+    }
 
     public int getId() {
         return id;
@@ -196,5 +258,80 @@ public class Article {
 
     public void setAttachment(Attachment attachment) {
         this.attachment = attachment;
+    }
+
+    public boolean getIs_top() {
+        return this.is_top;
+    }
+
+    public boolean getIs_subject() {
+        return this.is_subject;
+    }
+
+    public boolean getHas_attachment() {
+        return this.has_attachment;
+    }
+
+    public boolean getIs_admin() {
+        return this.is_admin;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Long getGId() {
+        return this.gId;
+    }
+
+    public void setGId(Long gId) {
+        this.gId = gId;
+    }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 128553479)
+    public void delete() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.delete(this);
+    }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#refresh(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 1942392019)
+    public void refresh() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.refresh(this);
+    }
+
+    /**
+     * Convenient call for {@link org.greenrobot.greendao.AbstractDao#update(Object)}.
+     * Entity must attached to an entity context.
+     */
+    @Generated(hash = 713229351)
+    public void update() {
+        if (myDao == null) {
+            throw new DaoException("Entity is detached from DAO context");
+        }
+        myDao.update(this);
+    }
+
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 2112142041)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getArticleDao() : null;
     }
 }
