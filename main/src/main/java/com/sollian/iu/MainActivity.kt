@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.util.Log
 import android.view.View
+import com.sollian.base.kotlinext.DelegatesExt
 import com.sollian.buz.controller.UserController
 import com.sollian.buz.http.IUHttpManager
 import com.sollian.buz.response.UserResponse
+import com.sollian.buz.sharepref.PrefKeys
 
 class MainActivity : FragmentActivity() {
 
@@ -14,7 +16,9 @@ class MainActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        IUHttpManager.instance.initUserInfo("sollian", "743251")
+        IUHttpManager.instance.initUserInfo("sollian", "111111")
+        var name: String? by DelegatesExt.preference(this, PrefKeys.USER_NAME, null)
+        name = "sollian"
     }
 
     fun login(view: View) {
