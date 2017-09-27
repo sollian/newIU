@@ -64,6 +64,12 @@ public class Article {
     private Attachment attachment;
     @Local
     private String     userId;
+    @Local
+    private String     photos;
+    @Local
+    private boolean    isReaded;
+    @Local
+    private boolean    isCollected;
 
     /**
      * Used to resolve relations
@@ -77,12 +83,12 @@ public class Article {
     @Generated(hash = 434328755)
     private transient ArticleDao myDao;
 
-    @Generated(hash = 1273310861)
-    public Article(Long gId, int id, int group_id, int reply_id, String flag,
-            boolean is_top, boolean is_subject, boolean has_attachment,
-            boolean is_admin, String title, long post_time, String board_name,
-            String content, int previous_id, int next_id, int threads_previous_id,
-            int threads_next_id, int reply_count, String userId) {
+    @Generated(hash = 720910444)
+    public Article(Long gId, int id, int group_id, int reply_id, String flag, boolean is_top,
+            boolean is_subject, boolean has_attachment, boolean is_admin, String title,
+            long post_time, String board_name, String content, int previous_id, int next_id,
+            int threads_previous_id, int threads_next_id, int reply_count, String userId,
+            String photos, boolean isReaded, boolean isCollected) {
         this.gId = gId;
         this.id = id;
         this.group_id = group_id;
@@ -102,6 +108,9 @@ public class Article {
         this.threads_next_id = threads_next_id;
         this.reply_count = reply_count;
         this.userId = userId;
+        this.photos = photos;
+        this.isReaded = isReaded;
+        this.isCollected = isCollected;
     }
 
     @Generated(hash = 742516792)
@@ -261,19 +270,19 @@ public class Article {
     }
 
     public boolean getIs_top() {
-        return this.is_top;
+        return is_top;
     }
 
     public boolean getIs_subject() {
-        return this.is_subject;
+        return is_subject;
     }
 
     public boolean getHas_attachment() {
-        return this.has_attachment;
+        return has_attachment;
     }
 
     public boolean getIs_admin() {
-        return this.is_admin;
+        return is_admin;
     }
 
     public String getUserId() {
@@ -284,12 +293,20 @@ public class Article {
         this.userId = userId;
     }
 
-    public Long getGId() {
-        return this.gId;
+    public boolean isReaded() {
+        return isReaded;
     }
 
-    public void setGId(Long gId) {
-        this.gId = gId;
+    public void setReaded(boolean readed) {
+        isReaded = readed;
+    }
+
+    public boolean isCollected() {
+        return isCollected;
+    }
+
+    public void setCollected(boolean collected) {
+        isCollected = collected;
     }
 
     /**
@@ -328,10 +345,162 @@ public class Article {
         myDao.update(this);
     }
 
-    /** called by internal mechanisms, do not call yourself. */
+    public String getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(String photos) {
+        this.photos = photos;
+    }
+
+    public Long getGId() {
+        return gId;
+    }
+
+    public void setGId(Long gId) {
+        this.gId = gId;
+    }
+
+    public boolean getIsReaded() {
+        return isReaded;
+    }
+
+    public void setIsReaded(boolean isReaded) {
+        this.isReaded = isReaded;
+    }
+
+    public boolean getIsCollected() {
+        return isCollected;
+    }
+
+    public void setIsCollected(boolean isCollected) {
+        this.isCollected = isCollected;
+    }
+
+    /**
+     * called by internal mechanisms, do not call yourself.
+     */
     @Generated(hash = 2112142041)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getArticleDao() : null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Article)) {
+            return false;
+        }
+
+        Article article = (Article) o;
+
+        if (id != article.id) {
+            return false;
+        }
+        if (group_id != article.group_id) {
+            return false;
+        }
+        if (reply_id != article.reply_id) {
+            return false;
+        }
+        if (is_top != article.is_top) {
+            return false;
+        }
+        if (is_subject != article.is_subject) {
+            return false;
+        }
+        if (has_attachment != article.has_attachment) {
+            return false;
+        }
+        if (is_admin != article.is_admin) {
+            return false;
+        }
+        if (post_time != article.post_time) {
+            return false;
+        }
+        if (previous_id != article.previous_id) {
+            return false;
+        }
+        if (next_id != article.next_id) {
+            return false;
+        }
+        if (threads_previous_id != article.threads_previous_id) {
+            return false;
+        }
+        if (threads_next_id != article.threads_next_id) {
+            return false;
+        }
+        if (reply_count != article.reply_count) {
+            return false;
+        }
+        if (flag != null ? !flag.equals(article.flag) : article.flag != null) {
+            return false;
+        }
+        if (title != null ? !title.equals(article.title) : article.title != null) {
+            return false;
+        }
+        if (board_name != null ? !board_name.equals(article.board_name)
+                               : article.board_name != null) {
+            return false;
+        }
+        if (content != null ? !content.equals(article.content) : article.content != null) {
+            return false;
+        }
+        if (user == null) {
+            if (article.user != null && article.user.didValid()) {
+                return false;
+            }
+        } else {
+            if (article.user == null) {
+                if (user.didValid()) {
+                    return false;
+                }
+            } else {
+                if (user.didValid() ^ article.user.didValid()) {
+                    return false;
+                }
+            }
+        }
+        return attachment != null ? attachment.equals(article.attachment)
+                                  : article.attachment == null;
+
+    }
+
+    public boolean didValid() {
+        return user != null && user.didValid();
+    }
+
+    public void copyLocalProp(Article article) {
+        userId = article.user.getId();
+        photos = article.photos;
+        isReaded = article.isReaded;
+        isCollected = article.isCollected;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + group_id;
+        result = 31 * result + reply_id;
+        result = 31 * result + (flag != null ? flag.hashCode() : 0);
+        result = 31 * result + (is_top ? 1 : 0);
+        result = 31 * result + (is_subject ? 1 : 0);
+        result = 31 * result + (has_attachment ? 1 : 0);
+        result = 31 * result + (is_admin ? 1 : 0);
+        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (int) (post_time ^ post_time >>> 32);
+        result = 31 * result + (board_name != null ? board_name.hashCode() : 0);
+        result = 31 * result + (content != null ? content.hashCode() : 0);
+        result = 31 * result + previous_id;
+        result = 31 * result + next_id;
+        result = 31 * result + threads_previous_id;
+        result = 31 * result + threads_next_id;
+        result = 31 * result + reply_count;
+        result = 31 * result + (user != null ? user.hashCode() : 0);
+        result = 31 * result + (attachment != null ? attachment.hashCode() : 0);
+        return result;
     }
 }

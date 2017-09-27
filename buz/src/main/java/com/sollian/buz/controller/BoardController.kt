@@ -1,5 +1,6 @@
 package com.sollian.buz.controller
 
+import com.sollian.buz.bean.Board
 import com.sollian.buz.dao.BoardDB
 import com.sollian.buz.response.BoardResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,7 +11,6 @@ import io.reactivex.schedulers.Schedulers
  */
 class BoardController : AbsController() {
     companion object {
-        val API_SECTION = API_HEAD + "/section/"
         val API_BOARD = API_HEAD + "/board/"
     }
 
@@ -27,7 +27,7 @@ class BoardController : AbsController() {
                 .map {
                     val boardResponse = BoardResponse(getJson(it))
                     if (boardResponse.success()) {
-                        BoardDB.insertOrUpdate(boardResponse.obj!!)
+                        saveBoard2DB(boardResponse.obj!!, page)
                     }
                     boardResponse
                 }
@@ -38,4 +38,11 @@ class BoardController : AbsController() {
     }
 
     fun syncGet(name: String) = BoardDB.queryByName(name)
+
+    private fun saveBoard2DB(board: Board, page: Int) {
+        if ((page == 0)) {
+            BoardDB.insertOrReplace(board)
+        }
+        ArticleController().safeInsertOrUpdate(*board.article)
+    }
 }

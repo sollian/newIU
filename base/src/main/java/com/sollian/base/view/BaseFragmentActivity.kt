@@ -23,7 +23,7 @@ abstract class BaseFragmentActivity<T : BasePresenter<*>> : AppCompatActivity(),
         presenter?.onCreate(savedInstanceState)
     }
 
-    override fun setContentView(layoutResID: Int) {
+    final override fun setContentView(layoutResID: Int) {
         super.setContentView(layoutResID)
 
         val vDecor = window.decorView;

@@ -8,7 +8,7 @@ import com.sollian.buz.bean.Widget
 object WidgetDB : AbsDB() {
     override fun getSessionKey() = "widget"
 
-    fun insertOrUpdate(widget: Widget) {
+    fun replace(widget: Widget) {
         db().deleteAll()
         db().insert(widget)
     }
@@ -18,5 +18,5 @@ object WidgetDB : AbsDB() {
                 .list()
     }
 
-    fun db() = session().widgetDao
+    fun db() = session().widgetDao!!
 }

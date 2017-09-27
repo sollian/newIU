@@ -15,9 +15,9 @@ object UserDB : AbsDB() {
                 .unique()
     }
 
-    fun insertOrUpdate(user: User) {
+    fun insertOrReplace(user: User) {
         db().insertOrReplace(user)
     }
 
-    private fun db() = session().userDao
+    private fun db() = session().userDao!!
 }

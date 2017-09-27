@@ -40,6 +40,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
+//    compile 'com.android.support:support-annotations:25.3.1'
 
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.8'
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
@@ -47,4 +48,7 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.38'
     compile 'org.greenrobot:greendao:3.2.2'
     compile 'com.github.dmytrodanylyk.android-process-button:library:1.0.4'
+
+    compile 'com.github.bumptech.glide:glide:4.1.1'
+    compile 'com.github.bumptech.glide:gifdecoder:4.1.1'
 }

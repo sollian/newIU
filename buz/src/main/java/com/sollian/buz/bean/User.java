@@ -248,30 +248,6 @@ public class User {
         return id == null;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", user_name='" + user_name + '\'' +
-                ", gender='" + gender + '\'' +
-                ", astro='" + astro + '\'' +
-                ", face_url='" + face_url + '\'' +
-                ", qq='" + qq + '\'' +
-                ", msn='" + msn + '\'' +
-                ", home_page='" + home_page + '\'' +
-                ", level='" + level + '\'' +
-                ", life=" + life +
-                ", post_count=" + post_count +
-                ", score=" + score +
-                ", is_online=" + is_online +
-                ", first_login_time=" + first_login_time +
-                ", last_login_time=" + last_login_time +
-                ", last_login_ip='" + last_login_ip + '\'' +
-                ", login_count=" + login_count +
-                ", role='" + role + '\'' +
-                '}';
-    }
-
     public Long getGId() {
         return this.gId;
     }
@@ -325,5 +301,25 @@ public class User {
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getUserDao() : null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
+
+        User user = (User) o;
+
+        return id != null ? id.equals(user.id) : user.id == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
     }
 }

@@ -22,6 +22,9 @@ class SignActivity : BaseFragmentActivity<SignPresenter>() {
 
         submit.setOnClickListener {
             submit.isEnabled = false
+            userName.isEnabled = false
+            password.isEnabled = false
+
             submit.progress = 50
             IUUtil.hideSoftKeyBoard(password)
             presenter!!.signIn(userName.validString(),
@@ -34,6 +37,8 @@ class SignActivity : BaseFragmentActivity<SignPresenter>() {
     fun onPostLogin(result: Boolean) {
         submit.progress = 0
         submit.isEnabled = !result
+        userName.isEnabled = !result
+        password.isEnabled = !result
     }
 
     inner class MyTextWatcher : TextWatcher {

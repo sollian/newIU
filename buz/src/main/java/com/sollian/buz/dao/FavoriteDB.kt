@@ -18,5 +18,5 @@ object FavoriteDB : AbsDB() {
         db().insert(favorite)
     }
 
-    private fun db() = session().favoriteDao
+    private fun db() = session().favoriteDao!!
 }

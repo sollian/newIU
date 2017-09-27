@@ -44,7 +44,7 @@ class UserController : AbsController() {
     private fun saveUser2DB(response: Response?): UserResponse {
         val userResponse = UserResponse(getJson(response))
         if (userResponse.success()) {
-            UserDB.insertOrUpdate(userResponse.obj!!)
+            UserDB.insertOrReplace(userResponse.obj!!)
         }
         return userResponse
     }

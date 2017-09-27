@@ -96,7 +96,7 @@ class FavoriteController : AbsController() {
                 names.dropLast(1)
             }.invoke()
             FavoriteDB.replace(favorite)
-            BoardDB.insertOrUpdate(favorite.board)
+            BoardDB.insertOrReplace(favorite.board)
         }
         return favoriteResponse
     }

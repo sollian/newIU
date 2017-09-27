@@ -1,7 +1,10 @@
 package com.sollian.buz.controller
 
+import com.sollian.buz.bean.Article
+import com.sollian.buz.dao.ArticleDB
 import com.sollian.buz.response.ArticleResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 /**
  * @author sollian on 2017/9/22.
@@ -15,8 +18,8 @@ class ArticleController : AbsController() {
                  consumer: ((response: ArticleResponse) -> Unit)?) {
         getObservable("$API_ARTICLE$board/$id$FORMAT?$APP_KEY")
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { response ->
-                    consumer?.invoke(ArticleResponse(getJson(response)))
+                .subscribe {
+                    consumer?.invoke(ArticleResponse(getJson(it)))
                 }
     }
 
@@ -102,8 +105,19 @@ class ArticleController : AbsController() {
 
         postObservable("$API_ARTICLE$board/update/$id$FORMAT?$APP_KEY", params)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { response ->
-                    consumer?.invoke(ArticleResponse(getJson(response)))
+                .map {
+                    val articleResponse = ArticleResponse(getJson(it))
+                    if (articleResponse.success()) {
+                        val article = articleResponse.obj!!
+                        val art = ArticleDB.queryById(article.id)
+                        if (art != null)
+                            safeInsertOrUpdate(article)
+                    }
+                    articleResponse
+                }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    consumer?.invoke(it)
                 }
     }
 
@@ -116,9 +130,75 @@ class ArticleController : AbsController() {
     fun asyncDelete(board: String, id: Int,
                     consumer: ((response: ArticleResponse) -> Unit)?) {
         postObservable("$API_ARTICLE$board/delete/$id$FORMAT?$APP_KEY", null)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { response ->
-                    consumer?.invoke(ArticleResponse(getJson(response)))
+                .observeOn(Schedulers.io())
+                .map {
+                    val articleResponse = ArticleResponse(getJson(it))
+                    if (articleResponse.success()) {
+                        ArticleDB.delete(articleResponse.obj!!)
+                    }
+                    articleResponse
                 }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    consumer?.invoke(it)
+                }
+    }
+
+    fun queryByIds(vararg ids: Int) = ArticleDB.queryByIds(*ids)
+
+    fun markRead(id: Int) {
+        val article = ArticleDB.queryById(id)
+        if (article != null) {
+            article.setReaded(true)
+            ArticleDB.update(article)
+        }
+    }
+
+    fun markCollected(id: Int, isCollected: Boolean) {
+        val article = ArticleDB.queryById(id)
+        if (article != null) {
+            article.setCollected(isCollected)
+            ArticleDB.update(article)
+        }
+    }
+
+    /**
+     * 不覆盖@Local属性
+     */
+    fun safeInsertOrUpdate(article: Article) {
+        val art = ArticleDB.queryById(article.id)
+        if (art == null) {
+            if (article.didValid()) ArticleDB.insertOrReplace(article)
+        } else {
+            if (article == art) {
+            } else if (!article.didValid()) {
+                ArticleDB.delete(art)
+            } else {
+                article.copyLocalProp(art)
+                article.userId = article.user.id
+                ArticleDB.insertOrReplace(article)
+            }
+        }
+    }
+
+    /**
+     * 不覆盖@Local属性
+     */
+    fun safeInsertOrUpdate(vararg article: Article) {
+        val insertList = arrayListOf<Article>()
+        val updateList = arrayListOf<Article>()
+        article.forEach {
+            val art = ArticleDB.queryById(it.id)
+            if (art == null) insertList.add(it)
+            else if (art == it) {
+            } else if (!it.didValid()) ArticleDB.delete(art)
+            else {
+                it.copyLocalProp(art)
+                it.userId = it.user.id
+                updateList.add(it)
+            }
+        }
+        if (insertList.isNotEmpty()) ArticleDB.insertOrReplace(insertList)
+        if (updateList.isNotEmpty()) ArticleDB.update(updateList)
     }
 }

@@ -1,12 +1,13 @@
 package com.sollian.buz.controller
 
-import com.sollian.buz.response.MailResponse
+import com.sollian.buz.response.SearchResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 /**
  * @author solli on 2017/9/24.
  */
-class SearController : AbsController() {
+class SearchController : AbsController() {
     companion object {
         val API_SEARCH = API_HEAD + "/search/threads" + FORMAT
     }
@@ -20,14 +21,22 @@ class SearController : AbsController() {
      * @param page    文章的页数
      */
     fun asyncGet(board: String, keywords: String, isTitle: Boolean, page: Int,
-                 consumer: ((response: MailResponse) -> Unit)?) {
+                 consumer: ((response: SearchResponse) -> Unit)?) {
         var url = "$API_SEARCH?$APP_KEY&board=$board&page=$page&day=365"
         url += if (isTitle) "&title1=" + keywords else "&author=" + keywords
 
         getObservable(url)
+                .observeOn(Schedulers.io())
+                .map {
+                    val searchResponse = SearchResponse(getJson(it))
+                    if (searchResponse.success()) {
+                        ArticleController().safeInsertOrUpdate(*searchResponse.obj!!.threads)
+                    }
+                    searchResponse
+                }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { response ->
-                    consumer?.invoke(MailResponse(getJson(response)))
+                .subscribe {
+                    consumer?.invoke(it)
                 }
     }
 }

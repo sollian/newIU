@@ -1,5 +1,7 @@
 package com.sollian.buz.bean;
 
+import java.util.Arrays;
+
 /**
  * @author sollian on 2017/9/4.
  */
@@ -36,12 +38,35 @@ public class Attachment {
         this.remain_count = remain_count;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Attachment)) {
+            return false;
+        }
+
+        Attachment that = (Attachment) o;
+
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(file, that.file);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(file);
+    }
+
     /**
      * 附件中包含的文件类
      *
      * @author 守宪
      */
-    public class File {
+    public static class File {
+        private static final String DIRTY_URL = "api.byr.cn/attachment";
+        private static final String RIGHT_URL = "bbs.byr.cn/att";
 
         // 文件名
         private String name;
@@ -95,18 +120,54 @@ public class Attachment {
         }
 
         public String getWrappedUrl() {
-            //TODO:
-            return getUrl();
+            return url.replace(DIRTY_URL, RIGHT_URL);
         }
 
         public String getWrappedThumbnail_small() {
-            //TODO:
-            return getThumbnail_small();
+            return thumbnail_small.replace(DIRTY_URL, RIGHT_URL);
         }
 
         public String getWrappedThumbnail_middle() {
-            //TODO:
-            return getThumbnail_middle();
+            return thumbnail_middle.replace(DIRTY_URL, RIGHT_URL);
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (!(o instanceof File)) {
+                return false;
+            }
+
+            File file = (File) o;
+
+            if (name != null ? !name.equals(file.name) : file.name != null) {
+                return false;
+            }
+            if (url != null ? !url.equals(file.url) : file.url != null) {
+                return false;
+            }
+            if (size != null ? !size.equals(file.size) : file.size != null) {
+                return false;
+            }
+            if (thumbnail_small != null ? !thumbnail_small.equals(file.thumbnail_small)
+                                        : file.thumbnail_small != null) {
+                return false;
+            }
+            return thumbnail_middle != null ? thumbnail_middle.equals(file.thumbnail_middle)
+                                            : file.thumbnail_middle == null;
+
+        }
+
+        @Override
+        public int hashCode() {
+            int result = name != null ? name.hashCode() : 0;
+            result = 31 * result + (url != null ? url.hashCode() : 0);
+            result = 31 * result + (size != null ? size.hashCode() : 0);
+            result = 31 * result + (thumbnail_small != null ? thumbnail_small.hashCode() : 0);
+            result = 31 * result + (thumbnail_middle != null ? thumbnail_middle.hashCode() : 0);
+            return result;
         }
     }
 }

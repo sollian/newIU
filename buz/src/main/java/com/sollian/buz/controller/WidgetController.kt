@@ -1,12 +1,10 @@
 package com.sollian.buz.controller
 
 import com.sollian.buz.bean.Widget
-import com.sollian.buz.dao.ArticleDB
 import com.sollian.buz.dao.WidgetDB
 import com.sollian.buz.response.WidgetResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import okhttp3.Response
 
 /**
  * @author sollian on 2017/9/25.
@@ -20,7 +18,10 @@ class WidgetController : AbsController() {
         getObservable(API_WIDGET_TOPTEN + '?' + APP_KEY)
                 .observeOn(Schedulers.io())
                 .map {
-                    saveWidget2DB(it)
+                    val widgetResponse = WidgetResponse(getJson(it))
+                    if (widgetResponse.success())
+                        saveWidget2DB(widgetResponse.obj!!)
+                    widgetResponse
                 }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
@@ -33,28 +34,23 @@ class WidgetController : AbsController() {
         return if (widgets.isNotEmpty()) {
             val widget = widgets[0]
             val articleIds = widget.articleIds.split(Widget.SPLITTER);
-            val articles = ArticleDB.queryByIds(*kotlin.IntArray(articleIds.size) {
+            val articles = ArticleController().queryByIds(*kotlin.IntArray(articleIds.size) {
                 articleIds[it].toInt()
             })
             if (articleIds.size == articles.size) widget else null
         } else null
     }
 
-    private fun saveWidget2DB(response: Response?): WidgetResponse {
-        val widgetResponse = WidgetResponse(getJson(response))
-        if (widgetResponse.success()) {
-            val widget = widgetResponse.obj!!
-            widget.articleIds = {
-                var ids = ""
-                widget.article.forEach {
-                    ids += it.id.toString() + Widget.SPLITTER
-                }
-                ids.dropLast(1)
-                ids
-            }.invoke()
-            ArticleDB.insertOrUpdate(listOf(*widget.article))
-            WidgetDB.insertOrUpdate(widget)
-        }
-        return widgetResponse
+    private fun saveWidget2DB(widget: Widget) {
+        widget.articleIds = {
+            var ids = ""
+            widget.article.forEach {
+                ids += it.id.toString() + Widget.SPLITTER
+            }
+            ids.dropLast(1)
+            ids
+        }.invoke()
+        ArticleController().safeInsertOrUpdate(*widget.article)
+        WidgetDB.replace(widget)
     }
 }

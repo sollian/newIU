@@ -9,15 +9,49 @@ import com.sollian.buz.bean.ArticleDao
 object ArticleDB : AbsDB() {
     override fun getSessionKey() = "article"
 
+    fun queryById(id: Int): Article? {
+        return db().queryBuilder()
+                .where(ArticleDao.Properties.Id.eq(id))
+                .unique()
+    }
+
     fun queryByIds(vararg ids: Int): List<Article> {
         return db().queryBuilder()
                 .where(ArticleDao.Properties.Id.`in`(ids))
                 .list()
     }
 
-    fun insertOrUpdate(article: Iterable<Article>) {
+    fun insertOrReplace(article: Article) {
+        db().insertOrReplace(article)
+    }
+
+    fun insertOrReplace(article: Iterable<Article>) {
         db().insertOrReplaceInTx(article)
     }
 
-    fun db() = session().articleDao
+    fun update(article: Article) {
+//        var art: Article? = article
+//        if (article.gId == null) {
+//            art = queryById(article.id)
+//        }
+//        if (art == null) insertOrReplace(article) else db().update(art)
+
+        db().update(article)
+    }
+
+    fun update(article: Iterable<Article>) {
+        db().updateInTx(article)
+    }
+
+    fun delete(article: Article) {
+        var art: Article? = article
+        if (article.gId == null) art = queryById(article.id)
+        if (art != null) db().deleteByKey(art.gId)
+    }
+
+    fun deleteByGid(gid: Long) {
+        db().deleteByKey(gid)
+    }
+
+    fun db() = session().articleDao!!
 }

@@ -21,13 +21,13 @@ object BoardDB : AbsDB() {
                 .list()
     }
 
-    fun insertOrUpdate(board: Board) {
+    fun insertOrReplace(board: Board) {
         db().insertOrReplace(board)
     }
 
-    fun insertOrUpdate(boards: Iterable<Board>) {
+    fun insertOrReplace(boards: Iterable<Board>) {
         db().insertOrReplaceInTx(boards)
     }
 
-    private fun db() = session().boardDao
+    private fun db() = session().boardDao!!
 }
