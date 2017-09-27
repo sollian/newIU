@@ -1,6 +1,5 @@
 package com.sollian.base.Utils
 
-import android.text.TextUtils
 import com.alibaba.fastjson.JSON
 
 /**
@@ -8,7 +7,7 @@ import com.alibaba.fastjson.JSON
  */
 object JsonUtil {
     fun <T> parse(json: String?, clazz: Class<T>): T? {
-        if (TextUtils.isEmpty(json)) {
+        if (json.isNullOrEmpty()) {
             return null
         }
 

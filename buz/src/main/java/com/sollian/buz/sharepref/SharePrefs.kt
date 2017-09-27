@@ -10,6 +10,6 @@ object SharePrefs {
     private val USER_NAME = "user_name"
     private val PASSWORD = "password"
 
-    var name: String? by DelegatesExt.preference(BaseContext.context, USER_NAME, null)
-    var password: String? by DelegatesExt.preference(BaseContext.context, PASSWORD, null)
+    var name: String by DelegatesExt.preference(BaseContext.context, USER_NAME, "")
+    var password: String by DelegatesExt.preference(BaseContext.context, PASSWORD, "")
 }

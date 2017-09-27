@@ -2,7 +2,6 @@ package com.sollian.buz.controller
 
 import com.sollian.buz.http.IUHttpManager
 import io.reactivex.Observable
-import io.reactivex.ObservableOnSubscribe
 import io.reactivex.schedulers.Schedulers
 import okhttp3.*
 import java.io.File
@@ -64,11 +63,10 @@ abstract class AbsController {
         return genObservable(request)
     }
 
-    private fun genObservable(request: Request) =
-            Observable.create(ObservableOnSubscribe<Response> { e ->
-                e.onNext(IUHttpManager.instance.syncSend(request))
-            })
-                    .subscribeOn(Schedulers.io())
+    private fun genObservable(request: Request, largeRes: Boolean = false) =
+            Observable.create<Response> {
+                it.onNext(IUHttpManager.instance.syncSend(request, largeRes))
+            }.subscribeOn(Schedulers.io())
 
     fun getJson(response: Response?): String? {
         var json = response?.body()?.string()

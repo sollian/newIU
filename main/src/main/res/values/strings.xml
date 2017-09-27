@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">IU</string>
+
+    <string name="school_motto">厚德博学，敬业乐群</string>
+    <string name="signin">登录</string>
+    <string name="user_name">用户名</string>
+    <string name="password">密码</string>
 </resources>

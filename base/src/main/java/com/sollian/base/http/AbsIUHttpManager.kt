@@ -28,7 +28,7 @@ abstract class AbsIUHttpManager {
     }
 
     private fun getHttpClient(): OkHttpClient? {
-        if (TextUtils.isEmpty(userName) || TextUtils.isEmpty(password)) {
+        if (userName.isNullOrEmpty() || password.isNullOrEmpty()) {
             return null
         }
         return OkHttpClient.Builder()

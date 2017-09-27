@@ -1,6 +1,5 @@
 package com.sollian.buz.controller
 
-import android.text.TextUtils
 import com.sollian.buz.response.ArticleResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -35,7 +34,7 @@ class ArticleController : AbsController() {
                 "title" to title,
                 "content" to content
         )
-        if (!TextUtils.isEmpty(reid)) {
+        if (!reid.isNullOrEmpty()) {
             params.put("reid", reid.toString())
         }
 

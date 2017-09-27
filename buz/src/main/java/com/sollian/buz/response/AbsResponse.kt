@@ -24,7 +24,7 @@ abstract class AbsResponse<T>(val json: String?) {
     fun checkError(obj: Any?) {
         if (obj != null) return
 
-        if (TextUtils.isEmpty(json)) {
+        if (json.isNullOrEmpty()) {
             desc = BaseContext.context.getString(R.string.unknown_error)
             return
         }
@@ -38,5 +38,5 @@ abstract class AbsResponse<T>(val json: String?) {
         }
     }
 
-    fun success() = TextUtils.isEmpty(desc)// && obj != null
+    fun success() = desc.isNullOrEmpty()// && obj != null
 }

@@ -2,11 +2,13 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme"
-           parent="Theme.AppCompat.Light.DarkActionBar">
+           parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="colorPrimary">@color/theme</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <item name="colorAccent">@color/theme</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
 </resources>
