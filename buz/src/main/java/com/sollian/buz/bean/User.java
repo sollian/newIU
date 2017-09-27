@@ -296,13 +296,6 @@ public class User {
         myDao.update(this);
     }
 
-    /** called by internal mechanisms, do not call yourself. */
-    @Generated(hash = 2059241980)
-    public void __setDaoSession(DaoSession daoSession) {
-        this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getUserDao() : null;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -321,5 +314,12 @@ public class User {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 2059241980)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getUserDao() : null;
     }
 }

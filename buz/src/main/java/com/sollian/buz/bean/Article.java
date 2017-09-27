@@ -377,15 +377,6 @@ public class Article {
         this.isCollected = isCollected;
     }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
-    @Generated(hash = 2112142041)
-    public void __setDaoSession(DaoSession daoSession) {
-        this.daoSession = daoSession;
-        myDao = daoSession != null ? daoSession.getArticleDao() : null;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -502,5 +493,12 @@ public class Article {
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (attachment != null ? attachment.hashCode() : 0);
         return result;
+    }
+
+    /** called by internal mechanisms, do not call yourself. */
+    @Generated(hash = 2112142041)
+    public void __setDaoSession(DaoSession daoSession) {
+        this.daoSession = daoSession;
+        myDao = daoSession != null ? daoSession.getArticleDao() : null;
     }
 }

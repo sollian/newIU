@@ -63,9 +63,9 @@ abstract class AbsController {
         return genObservable(request)
     }
 
-    private fun genObservable(request: Request, largeRes: Boolean = false) =
+    private fun genObservable(request: Request) =
             Observable.create<Response> {
-                it.onNext(IUHttpManager.instance.syncSend(request, largeRes))
+                it.onNext(IUHttpManager.instance.syncSend(request))
             }.subscribeOn(Schedulers.io())
 
     fun getJson(response: Response?): String? {
