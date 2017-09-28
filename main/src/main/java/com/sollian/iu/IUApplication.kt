@@ -18,6 +18,6 @@ class IUApplication : Application() {
         instance = this
 
         BaseContext.initContext(this)
-        IUHttpManager.instance.initUserInfo(SharePrefs.name, SharePrefs.password)
+        IUHttpManager.getInstance().initUserInfo(SharePrefs.name, SharePrefs.password)
     }
 }

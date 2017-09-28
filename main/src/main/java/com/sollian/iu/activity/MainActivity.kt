@@ -1,17 +1,9 @@
 package com.sollian.iu.activity
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import com.bumptech.glide.Glide
 import com.sollian.base.view.BaseFragmentActivity
 import com.sollian.base.view.BasePresenter
-import com.sollian.buz.controller.UserController
-import com.sollian.buz.http.IUHttpManager
-import com.sollian.buz.response.UserResponse
-import com.sollian.buz.sharepref.SharePrefs
-import com.sollian.iu.GlideIU
 import com.sollian.iu.R
 
 class MainActivity : BaseFragmentActivity<BasePresenter<*>>() {

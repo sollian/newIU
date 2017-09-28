@@ -18,7 +18,7 @@ class SignPresenter(page: SignActivity) : BasePresenter<SignActivity>(page) {
     }
 
     fun signIn(name: String, password: String) {
-        IUHttpManager.instance.initUserInfo(name, password)
+        IUHttpManager.getInstance().initUserInfo(name, password)
         userController.asyncLogin { response ->
             page.onPostLogin(response.success())
             if (response.success()) {

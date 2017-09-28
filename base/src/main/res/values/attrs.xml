@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="IURoundImageView">
+
+        <attr name="riv_shape">
+            <enum name="rectangle"
+                  value="0" />
+            <enum name="circle"
+                  value="1" />
+        </attr>
+        <!--shape=rectangle时有效-->
+        <attr name="riv_cornerRadius"
+              format="dimension" />
+        <attr name="riv_strokeWidth"
+              format="dimension" />
+        <attr name="riv_strokeColor"
+              format="color" />
+    </declare-styleable>
+
+    <declare-styleable name="HugeImageView">
+        <attr name="src" format="reference"/>
+        <attr name="assetName" format="string"/>
+        <attr name="panEnabled" format="boolean"/>
+        <attr name="zoomEnabled" format="boolean"/>
+        <attr name="quickScaleEnabled" format="boolean"/>
+        <attr name="tileBackgroundColor" format="color"/>
+    </declare-styleable>
+</resources>

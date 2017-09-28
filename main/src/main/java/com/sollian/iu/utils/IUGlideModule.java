@@ -1,4 +1,4 @@
-package com.sollian.iu;
+package com.sollian.iu.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -20,9 +20,17 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.sollian.base.Utils.DirUtil;
+import com.sollian.base.Utils.IUUtil;
+import com.sollian.base.http.IHttpProgressListener;
+import com.sollian.base.http.ProgressInterceptor;
 import com.sollian.buz.http.IUHttpManager;
+import com.sollian.iu.R;
 
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.OkHttpClient;
 
 /**
  * @author sollian on 2017/9/27.
@@ -30,7 +38,9 @@ import java.io.InputStream;
 @GlideModule(
         glideName = "GlideIU"
 )
-public class IUGlideModule extends AppGlideModule {
+public class IUGlideModule extends AppGlideModule implements IHttpProgressListener {
+    private static final Map<String, IHttpProgressListener> LISTENERS = new HashMap<>();
+
     @Override
     public boolean isManifestParsingEnabled() {
         return false;
@@ -50,8 +60,10 @@ public class IUGlideModule extends AppGlideModule {
 
     @Override
     public void registerComponents(Context context, Glide glide, Registry registry) {
+        OkHttpClient client = IUHttpManager.getInstance().getImgClient();
+        client.networkInterceptors().add(new ProgressInterceptor(this));
         registry.replace(GlideUrl.class, InputStream.class,
-                new OkHttpUrlLoader.Factory(IUHttpManager.Companion.getInstance().getClient()));
+                new OkHttpUrlLoader.Factory(client));
     }
 
     private static RequestOptions getRequestOptions() {
@@ -61,5 +73,32 @@ public class IUGlideModule extends AppGlideModule {
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 ;
+    }
+
+    static void putListener(String url, IHttpProgressListener listener) {
+        LISTENERS.put(url, listener);
+    }
+
+    static void removeListener(String url) {
+        LISTENERS.remove(url);
+    }
+
+    @Override
+    public void onUpdate(final String url, final long bytesRead, final long contentLength) {
+        if (contentLength < bytesRead) {
+            removeListener(url);
+        }
+
+        final IHttpProgressListener listener = LISTENERS.get(url);
+        if (listener == null) {
+            return;
+        }
+
+        IUUtil.post(new Runnable() {
+            @Override
+            public void run() {
+                listener.onUpdate(url, bytesRead, contentLength);
+            }
+        });
     }
 }
