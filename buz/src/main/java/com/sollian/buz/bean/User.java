@@ -4,6 +4,7 @@ import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
 
 /**
  * @author sollian on 2017/9/4.
@@ -19,6 +20,7 @@ public class User {
      * 基本信息
      */
     // 用户id
+    @Index(unique = true)
     private String  id;
     // 用户昵称
     private String  user_name;

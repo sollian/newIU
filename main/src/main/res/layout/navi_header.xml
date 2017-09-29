@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/theme"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.sollian.base.view.roundimage.IURoundImageView
+        android:id="@+id/header"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/iu_default_green"
+        app:riv_shape="circle"
+        app:riv_strokeColor="@android:color/white"
+        app:riv_strokeWidth="3dp"
+    />
+</LinearLayout>

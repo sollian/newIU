@@ -13,5 +13,9 @@ class BaseContext {
         fun initContext(context: Context) {
             this.context = context
         }
+
+        fun initWithPermissions() {
+            DirUtil.initDirs()
+        }
     }
 }

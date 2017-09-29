@@ -1,8 +1,9 @@
 package com.sollian.buz.http;
 
 import com.sollian.base.http.AbsIUHttpManager;
+import com.sollian.base.http.IHttpProgressListener;
+import com.sollian.base.http.ProgressInterceptor;
 
-import okhttp3.Call;
 import okhttp3.OkHttpClient;
 
 /**
@@ -29,8 +30,9 @@ public final class IUHttpManager extends AbsIUHttpManager {
         password = pwd;
     }
 
-    public OkHttpClient getImgClient() {
-        return getOkHttpClient();
+    public OkHttpClient getDownloadClient(IHttpProgressListener listener) {
+        return getOkHttpClientBuilder().addNetworkInterceptor(new ProgressInterceptor(listener))
+                                       .build();
     }
 
     @Override

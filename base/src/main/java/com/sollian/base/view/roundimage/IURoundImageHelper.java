@@ -42,6 +42,7 @@ public class IURoundImageHelper {
     private final ImageView vImage;
     private final Paint     paint;
     private       Bitmap    bitmap;
+    private       Bitmap    bitmapCache;
     private       Drawable  drawable;
 
     public IURoundImageHelper(ImageView imageView) {
@@ -201,11 +202,31 @@ public class IURoundImageHelper {
 
         //画图像层
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        if (drawable instanceof BitmapDrawable) {
-            Bitmap b = ((BitmapDrawable) drawable).getBitmap();
+        if (drawable instanceof ColorDrawable) {
+            int color = ((ColorDrawable) drawable).getColor();
+            canvas.drawColor(color, PorterDuff.Mode.SRC_IN);
+        } else {
+            Bitmap b = null;
+            if (drawable instanceof BitmapDrawable) {
+                b = ((BitmapDrawable) drawable).getBitmap();
+            }
+            //            else {
+            //                if (bitmapCache == null) {
+            //                    bitmapCache = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+            //                }
+            //
+            //                Canvas canvas1 = new Canvas(bitmapCache);
+            //                if (drawable.getCallback() != this) {
+            //                    drawable.setCallback(this);
+            //                }
+            //                drawable.draw(canvas1);
+            //                b = bitmapCache;
+            //            }
+
             if (b == null) {
                 return null;
             }
+
             if (vImage.getScaleType() != ImageView.ScaleType.FIT_XY) {
                 Matrix matrix = getImageMatrix();
                 if (matrix == null) {
@@ -218,9 +239,6 @@ public class IURoundImageHelper {
                 canvas.drawBitmap(b, new Rect(0, 0, b.getWidth(), b.getHeight()),
                         new Rect(0, 0, width, height), paint);
             }
-        } else if (drawable instanceof ColorDrawable) {
-            int color = ((ColorDrawable) drawable).getColor();
-            canvas.drawColor(color, PorterDuff.Mode.SRC_IN);
         }
 
         //画描边层

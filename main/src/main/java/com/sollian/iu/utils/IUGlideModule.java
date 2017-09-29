@@ -1,8 +1,6 @@
 package com.sollian.iu.utils;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 import com.bumptech.glide.Glide;
@@ -15,14 +13,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
 import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.sollian.base.Utils.DirUtil;
 import com.sollian.base.Utils.IUUtil;
 import com.sollian.base.http.IHttpProgressListener;
-import com.sollian.base.http.ProgressInterceptor;
 import com.sollian.buz.http.IUHttpManager;
 import com.sollian.iu.R;
 
@@ -51,27 +46,28 @@ public class IUGlideModule extends AppGlideModule implements IHttpProgressListen
         builder.setDiskCache(new DiskLruCacheFactory(DirUtil.getImageDir(), 1024 * 1024 * 100))
                .setMemoryCache(new LruResourceCache(1024 * 1024 * 20))
                .setDefaultRequestOptions(getRequestOptions())
-               .setDefaultTransitionOptions(Drawable.class,
-                       DrawableTransitionOptions.withCrossFade())
-               .setDefaultTransitionOptions(Bitmap.class, BitmapTransitionOptions.withCrossFade())
+               //               .setDefaultTransitionOptions(Drawable.class,
+               //                       DrawableTransitionOptions.withCrossFade())
+               //               .setDefaultTransitionOptions(Bitmap.class, BitmapTransitionOptions.withCrossFade())
                .setLogLevel(Log.WARN)
         ;
     }
 
     @Override
     public void registerComponents(Context context, Glide glide, Registry registry) {
-        OkHttpClient client = IUHttpManager.getInstance().getImgClient();
-        client.networkInterceptors().add(new ProgressInterceptor(this));
+        OkHttpClient client = IUHttpManager.getInstance().getDownloadClient(this);
         registry.replace(GlideUrl.class, InputStream.class,
                 new OkHttpUrlLoader.Factory(client));
     }
 
     private static RequestOptions getRequestOptions() {
         return new RequestOptions()
-                .placeholder(R.mipmap.iu_default_green)
-                .error(R.mipmap.iu_default_gray)
+                .placeholder(R.drawable.iu_default_green)
+                .error(R.drawable.iu_default_gray)
                 .format(DecodeFormat.PREFER_ARGB_8888)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .dontAnimate()
+                .dontTransform()
                 ;
     }
 

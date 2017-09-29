@@ -19,20 +19,20 @@ import okhttp3.Route;
  */
 
 public abstract class AbsIUHttpManager {
-    private final Call.Factory client = getOkHttpClient();
+    private final Call.Factory client = getOkHttpClientBuilder().build();
 
 
     @Nullable
     public Response syncSend(Request request) {
         try {
-            client.newCall(request).execute();
+            return client.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    protected final OkHttpClient getOkHttpClient() {
+    protected final OkHttpClient.Builder getOkHttpClientBuilder() {
         return new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
@@ -49,8 +49,7 @@ public abstract class AbsIUHttpManager {
                                        .header("Authorization", credential).build();
 
                     }
-                })
-                .build();
+                });
     }
 
     protected abstract String getUserName();

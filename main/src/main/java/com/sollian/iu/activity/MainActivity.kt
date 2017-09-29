@@ -1,18 +1,54 @@
 package com.sollian.iu.activity
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.v4.widget.DrawerLayout
+import android.view.Gravity
 import android.view.View
 import com.sollian.base.view.BaseFragmentActivity
-import com.sollian.base.view.BasePresenter
 import com.sollian.iu.R
+import com.sollian.iu.presenter.AbsMainPresenter
+import com.sollian.iu.presenter.WidgetPresenter
+import com.sollian.iu.utils.GlideUtil
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.navi_header.*
 
-class MainActivity : BaseFragmentActivity<BasePresenter<*>>() {
+class MainActivity : BaseFragmentActivity<AbsMainPresenter>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        initView()
     }
 
-    fun login(view: View) {
+    override fun initPresenter(): AbsMainPresenter = WidgetPresenter(this)
+
+    private fun initView() {
+        menu.setOnClickListener {
+            drawerLayout.openDrawer(Gravity.START)
+        }
+
+        navi.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.menu_settings -> startActivity(Intent(this, SettingActivity::class.java))
+                R.id.menu_about -> startActivity(Intent(this, AboutActivity::class.java))
+                else -> {
+                }
+            }
+            true
+        }
+
+        drawerLayout.addDrawerListener(object : DrawerLayout.SimpleDrawerListener() {
+            var hasInit = false
+            override fun onDrawerOpened(drawerView: View) {
+                if (!hasInit && header != null) {
+                    GlideUtil.load(this@MainActivity, presenter!!.user.face_url, header)
+                    hasInit = true
+                }
+            }
+
+            override fun onDrawerClosed(drawerView: View) {}
+        })
     }
 }

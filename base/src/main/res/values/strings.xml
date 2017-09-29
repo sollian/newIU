@@ -1,2 +1,3 @@
 <resources>
+    <string name="no_storage_permission">没有存储权限</string>
 </resources>

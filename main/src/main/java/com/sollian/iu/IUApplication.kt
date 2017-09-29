@@ -2,6 +2,7 @@ package com.sollian.iu
 
 import android.app.Application
 import com.sollian.base.Utils.BaseContext
+import com.sollian.base.Utils.DirUtil
 import com.sollian.buz.http.IUHttpManager
 import com.sollian.buz.sharepref.SharePrefs
 
