@@ -10,7 +10,7 @@ import com.gordonwong.materialsheetfab.AnimatedFab;
  * @author sollian on 2017/9/29.
  */
 
-public class CustomFloatButton extends FloatingActionButton implements AnimatedFab {
+public class CustomFloatButton extends FloatingActionButton{// implements AnimatedFab {
     public CustomFloatButton(Context context) {
         super(context);
     }
@@ -23,18 +23,18 @@ public class CustomFloatButton extends FloatingActionButton implements AnimatedF
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    public void show() {
-        show(0, 0);
-    }
-
-    @Override
-    public void show(float translationX, float translationY) {
-        setVisibility(VISIBLE);
-    }
-
-    @Override
-    public void hide() {
-        setVisibility(INVISIBLE);
-    }
+//    @Override
+//    public void show() {
+//        show(0, 0);
+//    }
+//
+//    @Override
+//    public void show(float translationX, float translationY) {
+//        setVisibility(VISIBLE);
+//    }
+//
+//    @Override
+//    public void hide() {
+//        setVisibility(INVISIBLE);
+//    }
 }

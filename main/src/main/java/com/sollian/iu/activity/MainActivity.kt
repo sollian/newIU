@@ -8,8 +8,9 @@ import android.view.View
 import com.sollian.base.view.BaseFragmentActivity
 import com.sollian.iu.R
 import com.sollian.iu.presenter.AbsMainPresenter
-import com.sollian.iu.presenter.WidgetPresenter
+import com.sollian.iu.presenter.MockMainPresenter
 import com.sollian.iu.utils.GlideUtil
+import com.sollian.iu.view.SmoothLinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navi_header.*
 
@@ -20,9 +21,10 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>() {
         setContentView(R.layout.activity_main)
 
         initView()
+        refreshViewWithPresenter()
     }
 
-    override fun initPresenter(): AbsMainPresenter = WidgetPresenter(this)
+    override fun initPresenter(): AbsMainPresenter = MockMainPresenter(this)
 
     private fun initView() {
         menu.setOnClickListener {
@@ -50,5 +52,16 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>() {
 
             override fun onDrawerClosed(drawerView: View) {}
         })
+
+        list.layoutManager = SmoothLinearLayoutManager(this)
+    }
+
+    fun resetPresenter(presenter: AbsMainPresenter) {
+        this.presenter = presenter
+
+    }
+
+    fun refreshViewWithPresenter() {
+        list.adapter = presenter!!.getAdapter()
     }
 }

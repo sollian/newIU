@@ -67,13 +67,14 @@
             android:scrollbars="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <com.sollian.iu.view.CustomFloatButton
+        <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:src="@drawable/ic_add"
             app:borderWidth="0dp"
+            android:layout_margin="15dp"
             app:elevation="8dp"
             app:fabSize="normal"
             app:layout_behavior="com.sollian.iu.view.ScrollFABBehavior"
