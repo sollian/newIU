@@ -67,7 +67,7 @@ public class ScrollFABBehavior extends FloatingActionButton.Behavior {
                       @Override
                       public void onAnimationEnd(View view) {
                           mIsAnimatingOut = false;
-                          view.setVisibility(View.GONE);
+                          view.setVisibility(View.INVISIBLE);
                       }
                   }).start();
     }

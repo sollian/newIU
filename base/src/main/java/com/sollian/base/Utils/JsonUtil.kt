@@ -11,7 +11,12 @@ object JsonUtil {
             return null
         }
 
-        return JSON.parseObject(json, clazz)
+        try {
+            return JSON.parseObject(json, clazz)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return null
     }
 
     fun toJson(obj: Any): String? = JSON.toJSONString(obj)
