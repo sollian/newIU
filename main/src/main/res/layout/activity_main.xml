@@ -36,7 +36,8 @@
                     android:layout_height="match_parent"
                     android:padding="10dp"
                     android:src="@drawable/ic_menu"
-                />
+                    />
+
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
@@ -46,7 +47,7 @@
                     android:text="@string/topten"
                     android:textColor="@color/text_first_invert"
                     android:textSize="@dimen/titlebar_title"
-                />
+                    />
 
                 <ImageView
                     android:id="@+id/more"
@@ -55,7 +56,7 @@
                     android:layout_gravity="right"
                     android:padding="10dp"
                     android:src="@drawable/ic_more"
-                />
+                    />
             </FrameLayout>
             <!--</android.support.v7.widget.Toolbar>-->
         </android.support.design.widget.AppBarLayout>
@@ -65,21 +66,45 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-        <android.support.design.widget.FloatingActionButton
+        <com.sollian.iu.view.CustomFloatButton
             android:id="@+id/floatbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
+            android:layout_margin="15dp"
             android:src="@drawable/ic_add"
             app:borderWidth="0dp"
-            android:layout_margin="15dp"
             app:elevation="8dp"
             app:fabSize="normal"
             app:layout_behavior="com.sollian.iu.view.ScrollFABBehavior"
             app:pressedTranslationZ="16dp"
-        />
+            />
+
+        <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
+            android:id="@+id/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <io.codetail.widget.RevealLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="end|bottom"
+            android:orientation="vertical"
+            >
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/sheet"
+                android:layout_width="250dp"
+                android:layout_height="300dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="hello world"/>
+            </android.support.v7.widget.CardView>
+        </io.codetail.widget.RevealLinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 
 
@@ -93,5 +118,5 @@
         app:headerLayout="@layout/navi_header"
         app:itemIconTint="#8b8b8b"
         app:itemTextColor="#666666"
-        app:menu="@menu/menu_main" />
+        app:menu="@menu/menu_main"/>
 </android.support.v4.widget.DrawerLayout>

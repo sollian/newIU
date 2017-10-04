@@ -1,20 +1,24 @@
 package com.sollian.iu.activity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.widget.DrawerLayout
 import android.view.Gravity
 import android.view.View
+import com.gordonwong.materialsheetfab.MaterialSheetFab
 import com.sollian.base.view.BaseFragmentActivity
 import com.sollian.iu.R
 import com.sollian.iu.presenter.AbsMainPresenter
 import com.sollian.iu.presenter.MockMainPresenter
 import com.sollian.iu.utils.GlideUtil
+import com.sollian.iu.view.CustomFloatButton
 import com.sollian.iu.view.SmoothLinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navi_header.*
 
 class MainActivity : BaseFragmentActivity<AbsMainPresenter>() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +58,10 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>() {
         })
 
         list.layoutManager = SmoothLinearLayoutManager(this)
+
+        val materialSheetFab = MaterialSheetFab<CustomFloatButton>(
+                floatbtn, sheet, overlay,
+                Color.WHITE, resources.getColor(R.color.theme))
     }
 
     fun resetPresenter(presenter: AbsMainPresenter) {
