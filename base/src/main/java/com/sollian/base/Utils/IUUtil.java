@@ -11,8 +11,11 @@ import android.view.inputmethod.InputMethodManager;
  * @author sollian on 2017/9/28.
  */
 
-public class IUUtil {
-    private static final Handler handler = new Handler(Looper.getMainLooper());
+public final class IUUtil {
+    private static final Handler HANDLER = new Handler(Looper.getMainLooper());
+
+    private IUUtil() {
+    }
 
     public static int dp2px(Context context, float dpValue) {
         float scale = context.getResources().getDisplayMetrics().density;
@@ -59,7 +62,7 @@ public class IUUtil {
         if (Thread.currentThread().getId() == Looper.getMainLooper().getThread().getId()) {
             runnable.run();
         } else {
-            handler.post(runnable);
+            HANDLER.post(runnable);
         }
     }
 }

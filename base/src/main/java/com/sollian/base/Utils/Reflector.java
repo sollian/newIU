@@ -12,25 +12,7 @@ import java.lang.reflect.Type;
 /**
  * @author binliu on 10/10/15.
  */
-public class Reflector {
-    public static final class TypedObject {
-        private final Object   object;
-        private final Class<?> type;
-
-        public TypedObject(Object object, Class<?> type) {
-            this.object = object;
-            this.type = type;
-        }
-
-        Object getObject() {
-            return object;
-        }
-
-        Class<?> getType() {
-            return type;
-        }
-    }
-
+public final class Reflector {
     @Nullable
     public static Class<?> forNameSafe(String className) {
         try {
@@ -232,5 +214,23 @@ public class Reflector {
         Type superType = clazz.getGenericSuperclass();
         ParameterizedType paramType = (ParameterizedType) superType;
         return (Class<T>) paramType.getActualTypeArguments()[index];
+    }
+
+    public static final class TypedObject {
+        private final Object   object;
+        private final Class<?> type;
+
+        public TypedObject(Object object, Class<?> type) {
+            this.object = object;
+            this.type = type;
+        }
+
+        Object getObject() {
+            return object;
+        }
+
+        Class<?> getType() {
+            return type;
+        }
     }
 }

@@ -24,7 +24,7 @@ import com.sollian.base.Utils.Reflector;
  * @author lishouxian on 2016/12/19.
  */
 
-public class IURoundImageHelper {
+class IURoundImageHelper {
     public static final int SHAPE_RECTANGLE = 0;
     public static final int SHAPE_CIRCLE    = 1;
 

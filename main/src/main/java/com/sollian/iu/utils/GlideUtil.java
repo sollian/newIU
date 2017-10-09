@@ -7,7 +7,10 @@ import android.widget.ImageView;
  * @author sollian on 2017/9/29.
  */
 
-public class GlideUtil {
+public final class GlideUtil {
+    private GlideUtil() {
+    }
+
     public static void load(Context context, String url, ImageView imageView) {
         GlideIU.with(context)
                .load(url)

@@ -12,7 +12,10 @@ import javax.microedition.khronos.egl.EGLSurface;
  * @author sollian on 2017/9/28.
  */
 
-public class ImageUtil {
+public final class ImageUtil {
+    private ImageUtil() {
+    }
+
     /**
      * 获取硬件加速最大质量（超过该值关闭硬件加速）
      */

@@ -10,7 +10,10 @@ import java.util.Collection;
  * @author sollian on 2017/9/27.
  */
 
-public class DirUtil {
+public final class DirUtil {
+    private DirUtil() {
+    }
+
     private static final String ROOT = "aiyou/";
 
     private static final String IMAGE = ROOT + "images/";

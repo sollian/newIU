@@ -15,14 +15,14 @@ public final class IUHttpManager extends AbsIUHttpManager {
     private String password;
 
     private static class Singleton {
-        static final IUHttpManager instance = new IUHttpManager();
+        static final IUHttpManager INSTANCE = new IUHttpManager();
     }
 
     private IUHttpManager() {
     }
 
     public static IUHttpManager getInstance() {
-        return Singleton.instance;
+        return Singleton.INSTANCE;
     }
 
     public void initUserInfo(String name, String pwd) {

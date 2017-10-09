@@ -16,4 +16,7 @@ abstract class AbsMainPresenter(page: MainActivity) : BasePresenter<MainActivity
     }
 
     abstract fun getAdapter(): RecyclerView.Adapter<*>
+    abstract fun onRefresh()
+    abstract fun onNextPage()
+    open fun hasNextPage() = false
 }
