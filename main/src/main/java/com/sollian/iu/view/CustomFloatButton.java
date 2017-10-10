@@ -11,6 +11,8 @@ import com.gordonwong.materialsheetfab.AnimatedFab;
  */
 
 public class CustomFloatButton extends FloatingActionButton implements AnimatedFab {
+    private boolean forceHide;
+
     public CustomFloatButton(Context context) {
         super(context);
     }
@@ -30,11 +32,22 @@ public class CustomFloatButton extends FloatingActionButton implements AnimatedF
 
     @Override
     public void show(float translationX, float translationY) {
+        if (forceHide) {
+            return;
+        }
         setVisibility(VISIBLE);
     }
 
     @Override
     public void hide() {
+        if (forceHide) {
+            return;
+        }
         setVisibility(INVISIBLE);
+    }
+
+    public void setForceHide(boolean forceHide) {
+        this.forceHide = forceHide;
+        setVisibility(forceHide ? GONE : VISIBLE);
     }
 }

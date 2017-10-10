@@ -15,6 +15,16 @@ import java.util.concurrent.TimeUnit
  * @author solli on 2017/9/30.
  */
 class MockMainPresenter(page: MainActivity) : AbsMainPresenter(page) {
+    override fun getType() = TYPE_WIDGET
+
+    override fun getTitle(): String? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun getMenuAdapter(): RecyclerView.Adapter<*>? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     private val data = arrayListOf<Int>()
     private val adapter = MockAdapter()
 
@@ -33,7 +43,7 @@ class MockMainPresenter(page: MainActivity) : AbsMainPresenter(page) {
                     data.clear()
                     data += 0..20
                     upper = 20
-                    page.onNotifyDataChanged()
+                    page.onNotifyDataChanged(this)
                 }
     }
 
@@ -43,7 +53,7 @@ class MockMainPresenter(page: MainActivity) : AbsMainPresenter(page) {
                 .subscribe {
                     data += upper + 1..upper + 20
                     upper += 20
-                    page.onNotifyDataChanged()
+                    page.onNotifyDataChanged(this)
                 }
     }
 

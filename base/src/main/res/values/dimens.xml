@@ -5,4 +5,7 @@
 
     <dimen name="titlebar_height">48dp</dimen>
     <dimen name="titlebar_title">18dp</dimen>
+
+    <dimen name="head_large">100dp</dimen>
+    <dimen name="head_small">40dp</dimen>
 </resources>

@@ -5,9 +5,11 @@
     <color name="accent_light">#cc436EEE</color>
     <color name="bg_common">#F1F2F5</color>
     <color name="bg_white">#FFFFFF</color>
+    <color name="widget_selected">#FF33B5E5</color>
+    <color name="widget_normal">#FF777777</color>
 
     <color name="text_first">#000000</color>
     <color name="text_second">#888888</color>
     <color name="text_first_invert">#FFFFFF</color>
-    <color name="text_disabled">#888888</color>
+    <color name="text_disabled">#cccccccc</color>
 </resources>

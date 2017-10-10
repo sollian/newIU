@@ -1,3 +1,5 @@
 <resources>
     <string name="no_storage_permission">没有存储权限</string>
+    <string name="no_net">没有网络</string>
+    <string name="error_unknown">未知错误</string>
 </resources>

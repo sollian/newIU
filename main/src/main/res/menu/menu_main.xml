@@ -1,4 +1,5 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+>
     <!--<group android:id="@+id/menu_group_1">-->
     <!--<item-->
     <!--android:id="@+id/menu_feed"-->
@@ -25,6 +26,38 @@
     <!--android:icon="@drawable/ic_global_menu_likes"-->
     <!--android:title="Photos You've Liked" />-->
     <!--</group>-->
+    <group android:id="@+id/menu_group_1">
+        <item
+            android:id="@+id/menu_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home"
+        />
+        <item
+            android:id="@+id/menu_collect"
+            android:icon="@drawable/ic_collected"
+            android:title="@string/collect"
+        />
+        <item
+            android:id="@+id/menu_reply"
+            android:icon="@drawable/ic_reply"
+            android:title="@string/reply_me"
+        />
+        <item
+            android:id="@+id/menu_at"
+            android:icon="@drawable/ic_at"
+            android:title="@string/at_me"
+        />
+        <item
+            android:id="@+id/menu_mail"
+            android:icon="@drawable/ic_mail"
+            android:title="@string/mail"
+        />
+        <item
+            android:id="@+id/menu_vote"
+            android:icon="@drawable/ic_vote"
+            android:title="@string/vote"
+        />
+    </group>
     <group android:id="@+id/menu_group_2">
         <item
             android:id="@+id/menu_settings"

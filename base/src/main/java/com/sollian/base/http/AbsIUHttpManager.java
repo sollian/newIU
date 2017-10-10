@@ -3,6 +3,8 @@ package com.sollian.base.http;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.sollian.base.Utils.NetHelper;
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -21,15 +23,17 @@ import okhttp3.Route;
 public abstract class AbsIUHttpManager {
     private final Call.Factory client = getOkHttpClientBuilder().build();
 
-
     @Nullable
     public Response syncSend(Request request) {
+        if (!NetHelper.getInstance().isNetAvailable()) {
+            return ErrorResponse.NO_NET;
+        }
         try {
             return client.newCall(request).execute();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return ErrorResponse.UNKNOWN;
     }
 
     protected final OkHttpClient.Builder getOkHttpClientBuilder() {
