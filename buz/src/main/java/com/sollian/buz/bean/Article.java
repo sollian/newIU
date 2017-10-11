@@ -1,6 +1,10 @@
 package com.sollian.buz.bean;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
+
 import com.sollian.base.annotation.Local;
+import com.sollian.buz.R;
 
 import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
@@ -16,6 +20,8 @@ import org.greenrobot.greendao.annotation.Transient;
         active = true
 )
 public class Article {
+    public static final char SPLITTER = ';';
+
     @Id(autoincrement = true)
     private Long gId;
 
@@ -115,6 +121,32 @@ public class Article {
 
     @Generated(hash = 742516792)
     public Article() {
+    }
+
+    public static int getMarkColor(
+            Context context,
+            @NonNull
+                    Article article) {
+        int colorId;
+        if (article.is_top) {
+            colorId = R.color.mark_top;
+        } else {
+            switch (article.flag) {
+                case "g":
+                    colorId = R.color.mark_g;
+                    break;
+                case "b":
+                    colorId = R.color.mark_g;
+                    break;
+                case "m":
+                    colorId = R.color.mark_g;
+                    break;
+                default:
+                    colorId = android.R.color.transparent;
+                    break;
+            }
+        }
+        return context.getResources().getColor(colorId);
     }
 
     public int getId() {
@@ -495,7 +527,9 @@ public class Article {
         return result;
     }
 
-    /** called by internal mechanisms, do not call yourself. */
+    /**
+     * called by internal mechanisms, do not call yourself.
+     */
     @Generated(hash = 2112142041)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;

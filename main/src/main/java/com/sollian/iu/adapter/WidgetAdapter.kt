@@ -4,15 +4,25 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridView
+import android.widget.TextView
+import com.sollian.base.Utils.IUUtil
 import com.sollian.buz.bean.Article
+import com.sollian.buz.bean.User
 import com.sollian.iu.R
+import com.sollian.iu.utils.GlideUtil
+import de.hdodenhof.circleimageview.CircleImageView
+import org.jetbrains.anko.find
+import org.jetbrains.anko.toast
 
 /**
  * @author sollian on 2017/10/10.
  */
 class WidgetAdapter(
         val context: Context
-) : RecyclerView.Adapter<WidgetAdapter.WidgetHolder>() {
+) : RecyclerView.Adapter<WidgetAdapter.WidgetHolder>(), View.OnClickListener {
+    val MAX_PHOTO_COUNT = 3
+
     val data = ArrayList<Article>()
 
     fun setData(articles: Array<Article>?) {
@@ -29,12 +39,70 @@ class WidgetAdapter(
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: WidgetHolder, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val article = getItem(position)
+
+        holder.root.tag = article
+        holder.root.setOnClickListener(this)
+        holder.head.tag = article.user
+        holder.head.setOnClickListener(this)
+
+        holder.boardName.text = article.board_name
+        val boardColor = IUUtil.str2Color(article.board_name)
+        holder.boardName.setBackgroundColor(boardColor)
+
+        holder.name.text = article.user.user_name
+        holder.head.borderColor = boardColor
+        if (article.user.didValid()) {
+            GlideUtil.load(context, article.user.face_url, holder.head)
+        } else {
+            holder.head.setImageResource(R.drawable.iu_default_gray)
+        }
+        holder.time.text = IUUtil.formatTime(article.post_time)
+        holder.replyCount.text = context.getString(R.string.reply_count, article.reply_count)
+
+        holder.mark.setBackgroundColor(Article.getMarkColor(context, article))
+
+        if (article.photos.isNullOrEmpty()) {
+            holder.imgGrid.visibility = View.GONE
+        } else {
+            holder.imgGrid.visibility = View.VISIBLE
+            var photoList = article.photos.split(Article.SPLITTER)
+            if (photoList.size > MAX_PHOTO_COUNT) {
+                photoList = photoList.subList(0, MAX_PHOTO_COUNT)
+            }
+        }
     }
 
-    fun getItem(position: Int) = data[position]
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.root -> {
+                val article = v.tag as Article
+                //TODO:
+            }
+            R.id.head -> {
+                val user = v.tag as User
+                if (user.didValid()) {
+                    //TODO:
+                } else {
+                    context.toast(R.string.invalid_user)
+                }
+            }
+            else -> {
+            }
+        }
+    }
+
+    private fun getItem(position: Int) = data[position]
 
     class WidgetHolder(view: View) : RecyclerView.ViewHolder(view) {
-
+        val root = view
+        val boardName = view.find<TextView>(R.id.boardName)
+        val name = view.find<TextView>(R.id.name)
+        val head = view.find<CircleImageView>(R.id.head)
+        val time = view.find<TextView>(R.id.time)
+        val replyCount = view.find<TextView>(R.id.replyCount)
+        val title = view.find<TextView>(R.id.title)
+        val imgGrid = view.find<GridView>(R.id.imgGrid)
+        val mark = view.find<View>(R.id.mark)
     }
 }

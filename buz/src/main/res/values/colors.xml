@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mark_top">#FFFF2222</color>
+    <color name="mark_g">#FF00AAFF</color>
+    <color name="mark_b">#FF888800</color>
+    <color name="mark_m">#FFFFCC00</color>
+</resources>
