@@ -13,15 +13,17 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.gordonwong.materialsheetfab.MaterialSheetFab
+import com.sollian.base.kotlinext.dp2px
 import com.sollian.base.view.BaseFragmentActivity
 import com.sollian.iu.R
 import com.sollian.iu.presenter.*
+import com.sollian.iu.utils.GlideUtil
+import com.sollian.iu.utils.MarginItemDecoration
 import com.sollian.iu.view.CustomFloatButton
 import com.sollian.iu.view.SmoothLinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.navi_header.*
 import org.jetbrains.anko.find
-import org.jetbrains.anko.toast
 
 class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
         View.OnClickListener {
@@ -49,6 +51,7 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
         swipeRefreshLayout.setOnRefreshListener(MyRefreshListener())
 
         list.layoutManager = SmoothLinearLayoutManager(this)
+        list.addItemDecoration(MarginItemDecoration(5.dp2px()))
         list.addOnScrollListener(MyScrollListener())
 
         val materialSheetFab = MaterialSheetFab<CustomFloatButton>(
@@ -158,6 +161,19 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
 
     inner class MyScrollListener : RecyclerView.OnScrollListener() {
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            requestNextPage(recyclerView)
+//            updateGlideState(newState)
+        }
+
+        private fun updateGlideState(newState: Int) {
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                GlideUtil.resume(this@MainActivity)
+            } else {
+                GlideUtil.pause(this@MainActivity)
+            }
+        }
+
+        private fun requestNextPage(recyclerView: RecyclerView) {
             if (isRefreshing || !presenter!!.hasNextPage()) return
 
             val llm = recyclerView.layoutManager as LinearLayoutManager

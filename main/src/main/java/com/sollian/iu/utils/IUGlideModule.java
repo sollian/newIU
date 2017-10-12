@@ -46,11 +46,13 @@ public class IUGlideModule extends AppGlideModule implements IHttpProgressListen
         builder.setDiskCache(new DiskLruCacheFactory(DirUtil.getImageDir(), 1024 * 1024 * 100))
                .setMemoryCache(new LruResourceCache(1024 * 1024 * 20))
                .setDefaultRequestOptions(getRequestOptions())
-               //               .setDefaultTransitionOptions(Drawable.class,
-               //                       DrawableTransitionOptions.withCrossFade())
-               //               .setDefaultTransitionOptions(Bitmap.class, BitmapTransitionOptions.withCrossFade())
-               .setLogLevel(Log.WARN)
-        ;
+               .setLogLevel(Log.WARN);
+        //        if (needAnim()) {
+        //            builder.setDefaultTransitionOptions(Drawable.class,
+        //                    DrawableTransitionOptions.withCrossFade())
+        //                   .setDefaultTransitionOptions(Bitmap.class,
+        //                           BitmapTransitionOptions.withCrossFade());
+        //        }
     }
 
     @Override
@@ -60,15 +62,21 @@ public class IUGlideModule extends AppGlideModule implements IHttpProgressListen
                 new OkHttpUrlLoader.Factory(client));
     }
 
-    private static RequestOptions getRequestOptions() {
-        return new RequestOptions()
+    private RequestOptions getRequestOptions() {
+        RequestOptions options = new RequestOptions()
                 .placeholder(R.drawable.iu_default_green)
                 .error(R.drawable.iu_default_gray)
                 .format(DecodeFormat.PREFER_ARGB_8888)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .dontAnimate()
-                .dontTransform()
-                ;
+                .diskCacheStrategy(DiskCacheStrategy.ALL);
+        //        if (!needAnim()) {
+        //            options.dontAnimate()
+        //                   .dontTransform();
+        //        }
+        return options;
+    }
+
+    protected boolean needAnim() {
+        return false;
     }
 
     static void putListener(String url, IHttpProgressListener listener) {

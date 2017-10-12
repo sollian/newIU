@@ -136,10 +136,10 @@ public class Article {
                     colorId = R.color.mark_g;
                     break;
                 case "b":
-                    colorId = R.color.mark_g;
+                    colorId = R.color.mark_b;
                     break;
                 case "m":
-                    colorId = R.color.mark_g;
+                    colorId = R.color.mark_m;
                     break;
                 default:
                     colorId = android.R.color.transparent;
@@ -527,9 +527,7 @@ public class Article {
         return result;
     }
 
-    /**
-     * called by internal mechanisms, do not call yourself.
-     */
+    /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 2112142041)
     public void __setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;

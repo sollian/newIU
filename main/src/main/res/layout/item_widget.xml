@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="10dp"
 >
 
     <android.support.constraint.ConstraintLayout
@@ -90,18 +91,23 @@
             app:layout_constraintTop_toBottomOf="@+id/head"
             tools:text="111111111111111111111111111111111111111111111111" />
 
-        <GridView
+        <com.sollian.iu.view.ForbidTouchGridView
             android:id="@+id/imgGrid"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="5dp"
             android:cacheColorHint="@android:color/transparent"
+            android:clickable="false"
+            android:descendantFocusability="blocksDescendants"
+            android:focusable="false"
+            android:gravity="center"
+            android:numColumns="3"
             app:layout_constraintDimensionRatio="W,1:3"
             app:layout_constraintLeft_toLeftOf="@+id/title"
             app:layout_constraintRight_toRightOf="@+id/title"
             app:layout_constraintTop_toBottomOf="@+id/title"
             tools:numColumns="3"
-            tools:visibility="gone"
+            tools:visibility="visible"
         />
 
         <View

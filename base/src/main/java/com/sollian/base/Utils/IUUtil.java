@@ -74,11 +74,19 @@ public final class IUUtil {
             @NonNull
                     String str) {
         int i = str.hashCode();
-        String color = "0x" + Integer.toHexString(i >> 24 & 0xFF) +
-                Integer.toHexString(i >> 16 & 0xFF) +
-                Integer.toHexString(i >> 8 & 0xFF)
-                + Integer.toHexString(i & 0xFF);
+        String color = "#" +
+//                ensureLength(Integer.toHexString(i >> 24 & 0xFF)) +
+                ensureLength(Integer.toHexString(i >> 16 & 0xFF)) +
+                ensureLength(Integer.toHexString(i >> 8 & 0xFF)) +
+                ensureLength(Integer.toHexString(i & 0xFF));
         return Color.parseColor(color);
+    }
+
+    private static String ensureLength(String str) {
+        if (str.length() == 1) {
+            return '0' + str;
+        }
+        return str;
     }
 
     /**
