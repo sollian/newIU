@@ -8,7 +8,7 @@
 
     <string name="home">十大</string>
     <string name="collect">收藏</string>
-    <string name="reply_me">回复</string>
+    <string name="reply_me">回复我</string>
     <string name="at_me">\@我</string>
     <string name="mail">邮件</string>
     <string name="vote">投票</string>
@@ -18,4 +18,11 @@
     <string name="invalid_user">无效用户</string>
 
     <string name="reply_count">%1$d回复</string>
+    <string name="readed">已读</string>
+    <string name="collected">已收藏</string>
+    <string name="cancel_collect">取消收藏</string>
+
+    <string name="search_by_author">按作者搜索</string>
+    <string name="search_by_keyword">按关键字搜索</string>
+    <string name="write">发帖</string>
 </resources>

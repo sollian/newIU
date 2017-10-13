@@ -36,8 +36,6 @@ open class BaseFragmentActivity<T : BasePresenter<*>> : AppCompatActivity(),
         presenter?.onDestroy()
     }
 
-    open fun getStatusbarColor() = resources.getColor(R.color.theme)
-
     open fun initPresenter(): T? = null
 
     override fun checkPermission(@NonNull permissions: Array<String>,

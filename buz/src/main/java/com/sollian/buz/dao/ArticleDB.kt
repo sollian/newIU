@@ -21,6 +21,17 @@ object ArticleDB : AbsDB() {
                 .list()
     }
 
+    /**
+     * page从1开始
+     */
+    fun queryCollected(page: Int, limit: Int): List<Article> {
+        return db().queryBuilder()
+                .where(ArticleDao.Properties.IsCollected.eq(true))
+                .limit(limit)
+                .offset((page - 1) * limit)
+                .list()
+    }
+
     fun insertOrReplace(article: Article) {
         db().insertOrReplace(article)
     }

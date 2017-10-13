@@ -162,6 +162,11 @@ class ArticleController : AbsController() {
         }
     }
 
+    fun syncQueryCollected(page: Int, limit: Int): List<Article> {
+        val p = if (page < 1) 1 else page
+        return ArticleDB.queryCollected(p, limit)
+    }
+
     /**
      * 不覆盖@Local属性
      */
@@ -202,3 +207,4 @@ class ArticleController : AbsController() {
         if (updateList.isNotEmpty()) ArticleDB.update(updateList)
     }
 }
+

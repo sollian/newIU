@@ -32,23 +32,15 @@ class WidgetPresenter(page: MainActivity) : AbsMainPresenter(page) {
         widgetController.asyncGet {
             if (!it.success()) {
                 page.toast(it.desc!!)
-                page.onNotifyDataChanged(this)
-                return@asyncGet
+            } else {
+                widget = it.obj
+                adapter.setData(widget?.article)
             }
-            widget = it.obj
-            adapter.setData(widget?.article)
             page.onNotifyDataChanged(this)
         }
     }
 
-    override fun hasNextPage() = false
-
-    override fun onNextPage() {
-    }
-
     override fun getTitle() = widget?.title
-
-    override fun getMenuAdapter(): RecyclerView.Adapter<*>? = null
 
     private fun mockWidget(): Widget {
         val widget = Widget()
@@ -75,6 +67,8 @@ class WidgetPresenter(page: MainActivity) : AbsMainPresenter(page) {
             article.isHas_attachment = i % 2 == 0
             article.reply_count = i * 10
             article.title = "第" + i + "个帖子"
+            article.setReaded(i % 3 == 0)
+            article.setCollected(i % 2 == 0)
 
             user = User()
             user.user_name = "我是" + i

@@ -29,7 +29,4 @@ class VotePresenter(page: MainActivity) : AbsMainPresenter(page) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getMenuAdapter(): RecyclerView.Adapter<*>? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 }

@@ -5,8 +5,10 @@
     <size
         android:width="50dp"
         android:height="50dp" />
+    <!--<solid-->
+        <!--android:color="@android:color/white" />-->
     <solid
-        android:color="@android:color/white" />
+        android:color="@color/bg_common" />
     <corners
         android:radius="10dp" />
 </shape>

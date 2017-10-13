@@ -21,11 +21,13 @@
             android:padding="5dp"
             android:textColor="@color/text_first_invert"
             android:textSize="@dimen/text_13"
+            android:visibility="gone"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:background="#FF33B5E5"
-            tools:text="谈天说地" />
+            tools:text="谈天说地"
+            tools:visibility="visible" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/head"
@@ -39,7 +41,8 @@
             app:civ_border_width="2dp"
             app:civ_fill_color="@android:color/white"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/boardName" />
+            app:layout_constraintTop_toBottomOf="@+id/boardName"
+            app:layout_goneMarginTop="10dp" />
 
         <TextView
             android:id="@+id/name"
@@ -67,27 +70,29 @@
             tools:text="2017年10月10日" />
 
         <TextView
-            android:id="@+id/replyCount"
+            android:id="@+id/readed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
-            android:textColor="@color/text_second"
-            android:textSize="@dimen/text_14"
+            android:text="@string/readed"
+            android:textSize="@dimen/text_13"
             app:layout_constraintBottom_toBottomOf="@+id/head"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/head"
-            tools:text="100回复" />
+            tools:textColor="#FF33B5E5" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="5dp"
             android:textColor="@color/text_first"
             android:textSize="@dimen/text_16"
             app:layout_constraintLeft_toLeftOf="@+id/head"
-            app:layout_constraintRight_toRightOf="@+id/replyCount"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/head"
             tools:text="111111111111111111111111111111111111111111111111" />
 
@@ -110,48 +115,37 @@
             tools:visibility="visible"
         />
 
+        <ImageView
+            android:id="@+id/collect"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="8dp"
+            android:padding="3dp"
+            android:src="@drawable/ic_collect"
+            app:layout_constraintRight_toLeftOf="@+id/replyCount"
+            app:layout_constraintTop_toBottomOf="@+id/imgGrid" />
+
+        <TextView
+            android:id="@+id/replyCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/text_second"
+            android:textSize="@dimen/text_12"
+            app:layout_constraintBottom_toBottomOf="@+id/collect"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/collect"
+            tools:text="100回复" />
+
         <View
             android:id="@+id/mark"
             android:layout_width="0dp"
-            android:layout_height="10dp"
+            android:layout_height="5dp"
             android:layout_marginTop="5dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgGrid"
+            app:layout_constraintTop_toBottomOf="@+id/collect"
             tools:background="#FF33B5E5"
         />
-        <!--<ImageView-->
-        <!--android:id="@+id/image1"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_marginTop="5dp"-->
-        <!--app:layout_constraintDimensionRatio="h,1:1"-->
-        <!--app:layout_constraintHorizontal_chainStyle="spread_inside"-->
-        <!--app:layout_constraintLeft_toLeftOf="@+id/title"-->
-        <!--app:layout_constraintRight_toLeftOf="@+id/image2"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/title"-->
-        <!--tools:src="@drawable/iu_default_green" -->
-        <!--/>-->
-        <!--<ImageView-->
-        <!--android:id="@+id/image2"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_marginLeft="5dp"-->
-        <!--android:layout_marginRight="5dp"-->
-        <!--app:layout_constraintDimensionRatio="h,1:1"-->
-        <!--app:layout_constraintLeft_toRightOf="@+id/image1"-->
-        <!--app:layout_constraintRight_toLeftOf="@+id/image3"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/image1"-->
-        <!--tools:src="@drawable/iu_default_gray" -->
-        <!--/>-->
-        <!--<ImageView-->
-        <!--android:id="@+id/image3"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="0dp"-->
-        <!--app:layout_constraintDimensionRatio="h,1:1"-->
-        <!--app:layout_constraintLeft_toRightOf="@+id/image2"-->
-        <!--app:layout_constraintRight_toRightOf="@+id/title"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/image2"-->
-        <!--tools:src="@drawable/iu_default_green"-->
-        <!--/>-->
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

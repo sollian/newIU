@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/menu_group_1">
+
+        <item
+            android:id="@+id/menu_search_by_author"
+            android:icon="@drawable/ic_search"
+            android:title="@string/search_by_author"
+        />
+        <item
+            android:id="@+id/menu_search_by_keyword"
+            android:icon="@drawable/ic_search"
+            android:title="@string/search_by_keyword"
+        />
+    </group>
+    <group android:id="@+id/menu_group_2">
+        <item
+            android:id="@+id/menu_write"
+            android:icon="@drawable/ic_write"
+            android:title="@string/write"
+        />
+    </group>
+</menu>

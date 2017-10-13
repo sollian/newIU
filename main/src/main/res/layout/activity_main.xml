@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:background="@color/bg_common"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/bg_common">
 
     <!--content-->
     <android.support.design.widget.CoordinatorLayout
@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
-
+            android:id="@+id/titleBar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/titlebar_height"
             android:background="@color/theme">
@@ -108,13 +108,14 @@
             android:gravity="end|bottom"
             android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/sheetList"
+            <android.support.design.widget.NavigationView
+                android:id="@+id/sheetView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_rect_white"
-                android:padding="10dp"
-            />
+                app:itemIconTint="@color/widget_selector"
+                app:itemTextColor="@color/text_second"
+                app:menu="@menu/menu_main" />
         </io.codetail.widget.RevealLinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 

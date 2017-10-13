@@ -341,6 +341,22 @@ public class Article {
         isCollected = collected;
     }
 
+    public String getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(String photos) {
+        this.photos = photos;
+    }
+
+    public Long getGId() {
+        return gId;
+    }
+
+    public void setGId(Long gId) {
+        this.gId = gId;
+    }
+
     /**
      * Convenient call for {@link org.greenrobot.greendao.AbstractDao#delete(Object)}.
      * Entity must attached to an entity context.
@@ -375,38 +391,6 @@ public class Article {
             throw new DaoException("Entity is detached from DAO context");
         }
         myDao.update(this);
-    }
-
-    public String getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(String photos) {
-        this.photos = photos;
-    }
-
-    public Long getGId() {
-        return gId;
-    }
-
-    public void setGId(Long gId) {
-        this.gId = gId;
-    }
-
-    public boolean getIsReaded() {
-        return isReaded;
-    }
-
-    public void setIsReaded(boolean isReaded) {
-        this.isReaded = isReaded;
-    }
-
-    public boolean getIsCollected() {
-        return isCollected;
-    }
-
-    public void setIsCollected(boolean isCollected) {
-        this.isCollected = isCollected;
     }
 
     @Override
@@ -525,6 +509,22 @@ public class Article {
         result = 31 * result + (user != null ? user.hashCode() : 0);
         result = 31 * result + (attachment != null ? attachment.hashCode() : 0);
         return result;
+    }
+
+    public boolean getIsReaded() {
+        return isReaded;
+    }
+
+    public void setIsReaded(boolean isReaded) {
+        this.isReaded = isReaded;
+    }
+
+    public boolean getIsCollected() {
+        return isCollected;
+    }
+
+    public void setIsCollected(boolean isCollected) {
+        this.isCollected = isCollected;
     }
 
     /** called by internal mechanisms, do not call yourself. */

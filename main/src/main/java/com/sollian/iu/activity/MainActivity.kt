@@ -1,7 +1,7 @@
 package com.sollian.iu.activity
 
 import android.content.Intent
-import android.graphics.Color
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
@@ -28,6 +28,7 @@ import org.jetbrains.anko.find
 class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
         View.OnClickListener {
     private var isRefreshing = false
+    private var sheetFab: MaterialSheetFab<*>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +38,7 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
         refreshViewWithPresenter()
     }
 
-    override fun initPresenter(): AbsMainPresenter = WidgetPresenter(this)
+    override fun initPresenter(): AbsMainPresenter = ReplyPresenter(this)
 
     private fun initView() {
         menu.setOnClickListener(this)
@@ -47,16 +48,20 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
 
         drawerLayout.addDrawerListener(MyDrawerListener())
 
-        swipeRefreshLayout.setColorSchemeColors(resources.getColor(R.color.theme))
         swipeRefreshLayout.setOnRefreshListener(MyRefreshListener())
 
         list.layoutManager = SmoothLinearLayoutManager(this)
         list.addItemDecoration(MarginItemDecoration(5.dp2px()))
         list.addOnScrollListener(MyScrollListener())
 
-        val materialSheetFab = MaterialSheetFab<CustomFloatButton>(
-                floatbtn, sheetList, overlay,
-                Color.WHITE, resources.getColor(R.color.theme))
+        sheetFab = MaterialSheetFab<CustomFloatButton>(
+                floatbtn, sheetView, overlay,
+                resources.getColor(R.color.bg_common),
+                resources.getColor(R.color.theme))
+        sheetView.setNavigationItemSelectedListener {
+            presenter!!.onMenuClick(it)
+            true
+        }
     }
 
     fun setPresenter(presenter: AbsMainPresenter) {
@@ -67,6 +72,16 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
     private fun refreshViewWithPresenter(forceInitAdapter: Boolean = false) {
         setRefreshing(true)
 
+        window.statusBarColor = presenter!!.getThemeColor()
+        titleBar.setBackgroundColor(presenter!!.getThemeColor())
+        floatbtn.backgroundTintList = ColorStateList.valueOf(presenter!!.getThemeColor())
+        swipeRefreshLayout.setColorSchemeColors(presenter!!.getThemeColor())
+        sheetFab?.setFabColor(presenter!!.getThemeColor())
+
+        swipeRefreshLayout.isEnabled = presenter!!.canRefresh()
+
+        navi.itemIconTintList = presenter!!.getMenuItemIconTintList()
+
         if (forceInitAdapter || list.adapter == null) {
             list.adapter = presenter!!.getAdapter()
         } else
@@ -75,9 +90,13 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
 
         find<TextView>(R.id.title).text = presenter!!.getTitle()
 
-        val menuAdapter = presenter!!.getMenuAdapter()
-        floatbtn.setForceHide(menuAdapter == null)
-        sheetList.adapter = menuAdapter
+        val menuId = presenter!!.getMenuResId()
+        floatbtn.setForceHide(menuId == 0)
+        if (menuId != 0) {
+            sheetView.menu.clear()
+            sheetView.inflateMenu(menuId)
+            sheetView.itemIconTintList = presenter!!.getMenuItemIconTintList()
+        }
     }
 
     fun onNotifyDataChanged(presenter: AbsMainPresenter) {
@@ -85,6 +104,10 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
 
         list.adapter?.notifyDataSetChanged()
         setRefreshing(false)
+    }
+
+    fun onHideMenu() {
+        sheetFab?.hideSheet()
     }
 
     private fun setRefreshing(refreshing: Boolean) {
@@ -100,7 +123,16 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
     override fun onClick(v: View) {
         when (v.id) {
             R.id.menu -> drawerLayout.openDrawer(Gravity.START)
-            R.id.more -> presenter!!.onClickMore()
+            R.id.more -> {
+                presenter!!.onClickMore()
+                //TODO
+                setPresenter(BoardPresenter(this))
+            }
+            R.id.head -> {
+                val intent = Intent(this, UserInfoActivity::class.java)
+                intent.putExtra(UserInfoActivity.KEY_USER_ID, presenter!!.user.id)
+                startActivity(intent)
+            }
             else -> {
             }
         }
@@ -149,6 +181,15 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
 //                GlideUtil.load(this@MainActivity, presenter!!.user.face_url, header)
                 hasInit = true
             }
+
+            val head = navi.find<View>(R.id.head)
+            if (!head.hasOnClickListeners()) {
+                head.setOnClickListener(this@MainActivity)
+            }
+        }
+
+        override fun onDrawerStateChanged(newState: Int) {
+            navi.findViewById(R.id.head_ll)?.setBackgroundColor(presenter!!.getThemeColor())
         }
     }
 
