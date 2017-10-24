@@ -39,7 +39,7 @@ public class Mailbox {
     // 当前信箱的分页信息
     private Pagination pagination;
     // 当前信箱所包含的信件元数据数组
-    private Mail[]     maill;
+    private Mail[]     mail;
 
     public boolean isNew_mail() {
         return new_mail;
@@ -89,11 +89,11 @@ public class Mailbox {
         this.pagination = pagination;
     }
 
-    public Mail[] getMaill() {
-        return maill;
+    public Mail[] getMail() {
+        return mail;
     }
 
-    public void setMaill(Mail[] maill) {
-        this.maill = maill;
+    public void setMail(Mail[] mail) {
+        this.mail = mail;
     }
 }

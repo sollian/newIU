@@ -34,7 +34,8 @@ public class Vote {
     private boolean  is_result_voted;
     // 投票发起人的用户元数据，如果该用户不存在则为字符串
     private User     user;
-    // 当前用户的投票结果，如果用户已投票，则含有两个属性time(int)和viid(array)，分别表示投票的时间和所投选项的viid数组；如果用户没投票则为false
+    // 当前用户的投票结果，如果用户已投票，则含有两个属性time(int)和viid(array)，分别表示投票的时间和所投选项的viid数组；
+    // 如果用户没投票则为false
     private Voted    voted;
     // 投票选项，由投票选项元数据组成的数组，只存在于/vote/:id中
     private Option[] options;
@@ -157,6 +158,14 @@ public class Vote {
 
     public void setOptions(Option[] options) {
         this.options = options;
+    }
+
+    public boolean didVoted() {
+        return voted != null;
+    }
+
+    public boolean didMultiVote() {
+        return type == 1;
     }
 
     /**

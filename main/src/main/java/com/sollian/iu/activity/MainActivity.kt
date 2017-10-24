@@ -53,6 +53,7 @@ class MainActivity : BaseFragmentActivity<AbsMainPresenter>(),
         list.layoutManager = SmoothLinearLayoutManager(this)
         list.addItemDecoration(MarginItemDecoration(5.dp2px()))
         list.addOnScrollListener(MyScrollListener())
+        list.setEmptyView(empty)
 
         sheetFab = MaterialSheetFab<CustomFloatButton>(
                 floatbtn, sheetView, overlay,

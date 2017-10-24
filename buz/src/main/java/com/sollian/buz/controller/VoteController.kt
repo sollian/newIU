@@ -2,6 +2,7 @@ package com.sollian.buz.controller
 
 import com.sollian.buz.bean.Vote
 import com.sollian.buz.bean.VoteList
+import com.sollian.buz.response.VoteListResponse
 import com.sollian.buz.response.VoteResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -63,11 +64,11 @@ class VoteController : AbsController() {
      * @param page
      */
     fun asyncGetList(@VoteList.VoteType type: String, page: Int,
-                     consumer: ((response: VoteResponse) -> Unit)?) {
+                     consumer: ((response: VoteListResponse) -> Unit)?) {
         getObservable(API_VOTE + "category/" + type + FORMAT + '?' + APP_KEY + "&page=" + page)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { response ->
-                    consumer?.invoke(VoteResponse(getJson(response)))
+                    consumer?.invoke(VoteListResponse(getJson(response)))
                 }
     }
 }

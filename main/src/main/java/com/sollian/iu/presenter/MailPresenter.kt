@@ -1,31 +1,95 @@
 package com.sollian.iu.presenter
 
 import android.support.v7.widget.RecyclerView
+import android.view.MenuItem
+import com.sollian.buz.bean.Mail
+import com.sollian.buz.bean.Mailbox
+import com.sollian.buz.bean.User
+import com.sollian.buz.controller.MailController
+import com.sollian.iu.R
 import com.sollian.iu.activity.MainActivity
+import com.sollian.iu.adapter.MailAdapter
+import org.jetbrains.anko.toast
 
 /**
  * @author sollian on 2017/10/10.
  */
 class MailPresenter(page: MainActivity) : AbsMainPresenter(page) {
-    override fun getType() = TYPE_MAIL
+    private val mailController = MailController()
+    private val mails = arrayListOf<Mail>()
+    private var curPage = DEFAULT_PAGE
+    private var totalPage = DEFAULT_PAGE
+    private val adapter = MailAdapter(page)
 
-    override fun getAdapter(): RecyclerView.Adapter<*>? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    init {
+        mails.addAll(mockMail())
+        adapter.setData(mails)
+        onRefresh()
     }
 
+    override fun getType() = TYPE_MAIL
+
+    override fun getAdapter(): RecyclerView.Adapter<*>? = adapter
+
     override fun onRefresh() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        curPage = DEFAULT_PAGE
+        mailController.asyncGetBox(Mailbox.INBOX, curPage) {
+            if (!it.success()) {
+                page.toast(it.desc!!)
+            } else {
+                totalPage = it.obj!!.pagination.page_all_count
+                mails.clear()
+                mails.addAll(it.obj!!.mail)
+            }
+            page.onNotifyDataChanged(this)
+        }
     }
 
     override fun onNextPage() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mailController.asyncGetBox(Mailbox.INBOX, curPage + 1) {
+            if (!it.success()) {
+                page.toast(it.desc!!)
+            } else {
+                totalPage = it.obj!!.pagination.page_all_count
+                curPage = it.obj!!.pagination.page_current_count
+                mails.removeAll(it.obj!!.mail)
+                mails.addAll(it.obj!!.mail)
+            }
+            page.onNotifyDataChanged(this)
+        }
     }
 
-    override fun hasNextPage(): Boolean {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun hasNextPage() = curPage < totalPage
+
+    override fun getTitle(): String? = page.getString(R.string.mail)
+
+    override fun getMenuResId() = R.menu.menu_mail
+    override fun onMenuClick(item: MenuItem) {
+        super.onMenuClick(item)
+        when (item.itemId) {
+            R.id.menu_write -> {
+
+            }
+            else -> {
+
+            }
+        }
     }
 
-    override fun getTitle(): String? {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    private fun mockMail(): List<Mail> {
+        val mails = arrayListOf<Mail>()
+
+        for (i in 0..10) {
+            val mail = Mail()
+            mail.content = "第" + i + "封邮件"
+            mail.setIs_read(i > 4)
+            mail.title = "标题" + i
+            val user = User()
+            user.user_name = "我是" + i
+            user.face_url = "https://static.byr.cn/uploadFace/B/buerlc.3968.jpg"
+            mail.user = user
+            mails.add(mail)
+        }
+        return mails;
     }
 }

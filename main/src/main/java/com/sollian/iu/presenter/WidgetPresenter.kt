@@ -8,6 +8,7 @@ import com.sollian.buz.controller.WidgetController
 import com.sollian.iu.activity.MainActivity
 import com.sollian.iu.adapter.WidgetAdapter
 import org.jetbrains.anko.toast
+import java.util.*
 
 /**
  * @author sollian on 2017/9/29.
@@ -49,6 +50,7 @@ class WidgetPresenter(page: MainActivity) : AbsMainPresenter(page) {
 
         val boardNames = listOf("谈天说地", "海天游踪", "跳蚤市场", "经济学", "Java技术",
                 "智能车", "软件办公", "机器人", "WWW技术", "创新实践")
+        Collections.shuffle(boardNames)
         val flags = listOf("m", "g", "b", "")
         val photo0 = ""
         val photo1 = "https://bbs.byr.cn/att/Travel/0/136806/1795"

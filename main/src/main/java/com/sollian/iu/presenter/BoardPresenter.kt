@@ -48,8 +48,8 @@ open class BoardPresenter(page: MainActivity) : AbsMainPresenter(page) {
                 page.toast(it.desc!!)
             } else {
                 totalPage = it.obj!!.pagination.page_all_count
-                articles.addAll(it.obj!!.article)
                 articles.clear()
+                articles.addAll(it.obj!!.article)
             }
             page.onNotifyDataChanged(this)
         }

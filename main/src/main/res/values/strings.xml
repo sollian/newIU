@@ -25,4 +25,20 @@
     <string name="search_by_author">按作者搜索</string>
     <string name="search_by_keyword">按关键字搜索</string>
     <string name="write">发帖</string>
+    <string name="send_mail">写信</string>
+    <string name="all_mark_read">全部标为已读</string>
+
+    <string name="voted">已投</string>
+    <string name="terminated">已截止</string>
+    <string name="vote_totle_num">%1$d人参与</string>
+    <string name="multi_vote">多选</string>
+    <string name="single_vote">单选</string>
+
+    <string name="vote_new">最新投票</string>
+    <string name="vote_my">我的投票</string>
+    <string name="vote_join">我参与的投票</string>
+    <string name="vote_hot">热门投票</string>
+    <string name="vote_all">全部投票</string>
+
+    <string name="empty">无内容</string>
 </resources>

@@ -2,6 +2,7 @@ package com.sollian.buz.controller
 
 import com.sollian.buz.bean.Mailbox
 import com.sollian.buz.response.MailResponse
+import com.sollian.buz.response.MailboxResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 /**
@@ -112,22 +113,22 @@ class MailController : AbsController() {
      * @param page 信箱的页数
      */
     fun asyncGetBox(@Mailbox.BoxType box: String, page: Int,
-                    consumer: ((response: MailResponse) -> Unit)?) {
+                    consumer: ((response: MailboxResponse) -> Unit)?) {
         getObservable("$API_MAIL$box$FORMAT?$APP_KEY&page=$page")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { response ->
-                    consumer?.invoke(MailResponse(getJson(response)))
+                    consumer?.invoke(MailboxResponse(getJson(response)))
                 }
     }
 
     /**
      * 信箱属性信息，包括是否有新邮件
      */
-    fun asyncGetBoxInfo(consumer: ((response: MailResponse) -> Unit)?) {
+    fun asyncGetBoxInfo(consumer: ((response: MailboxResponse) -> Unit)?) {
         getObservable(API_MAIL + "info" + FORMAT + '?' + APP_KEY)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { response ->
-                    consumer?.invoke(MailResponse(getJson(response)))
+                    consumer?.invoke(MailboxResponse(getJson(response)))
                 }
     }
 }

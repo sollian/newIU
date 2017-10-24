@@ -31,8 +31,8 @@ open class BoardAdapter(
 ) : RecyclerView.Adapter<BoardAdapter.BoardHolder>(), View.OnClickListener {
     private var columnWidth = SharePrefs.columnWidth
     private val maxPhotoCount = 3
-    private val articleController = ArticleController()
-    private val data = ArrayList<Article>()
+    protected val data = ArrayList<Article>()
+    protected val articleController = ArticleController()
 
     fun setData(articles: Array<Article>?) {
         data.clear()
@@ -56,7 +56,7 @@ open class BoardAdapter(
     override fun onBindViewHolder(holder: BoardHolder, position: Int) {
         val article = getItem(position)
 
-        holder.root.tag = position
+        holder.root.tag = article
         holder.root.setOnClickListener(this)
         holder.head.setTag(R.id.tag, article.user)
         holder.head.setOnClickListener(this)
@@ -82,7 +82,7 @@ open class BoardAdapter(
         } else {
             holder.collect.imageTintList = ColorStateList.valueOf(context.resources.getColor(R.color.widget_normal_light))
         }
-        holder.collect.tag = position
+        holder.collect.tag = article
         holder.collect.setOnClickListener(this)
 
         RevelyGradient.linear()
@@ -129,8 +129,8 @@ open class BoardAdapter(
     override fun onClick(v: View) {
         when (v.id) {
             R.id.root -> {
-                val position = v.tag as Int
-                val article = getItem(position)
+                val article = v.tag as Article
+                val position = data.indexOf(article)
                 if (!article.isReaded()) {
                     article.setReaded(true)
                     articleController.markRead(article.id)
@@ -149,8 +149,8 @@ open class BoardAdapter(
                 }
             }
             R.id.collect -> {
-                val position = v.tag as Int
-                val article = getItem(position)
+                val article = v.tag as Article
+                val position = data.indexOf(article)
                 article.setCollected(!article.isCollected())
                 articleController.markCollected(article.id, article.isCollected())
                 notifyItemChanged(position)

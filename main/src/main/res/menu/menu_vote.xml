@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/menu_group_1">
+        <item
+            android:id="@+id/menu_vote_all"
+            android:title="@string/vote_all"
+        />
+        <item
+            android:id="@+id/menu_vote_hot"
+            android:title="@string/vote_hot"
+        />
+        <item
+            android:id="@+id/menu_vote_new"
+            android:title="@string/vote_new"
+        />
+        <item
+            android:id="@+id/menu_vote_my"
+            android:title="@string/vote_my"
+        />
+        <item
+            android:id="@+id/menu_vote_join"
+            android:title="@string/vote_join"
+        />
+    </group>
+</menu>

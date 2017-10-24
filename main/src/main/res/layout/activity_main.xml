@@ -1,6 +1,7 @@
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -69,13 +70,24 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
 
-            <android.support.v7.widget.RecyclerView
+            <com.sollian.iu.view.EmptyRecyclerView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"
+                tools:visibility="gone"
             />
         </android.support.v4.widget.SwipeRefreshLayout>
+
+        <TextView
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/empty"
+            android:textColor="@color/text_second"
+            android:textSize="@dimen/text_16"
+        />
         <!--<FrameLayout-->
         <!--android:id="@+id/container"-->
         <!--android:layout_width="match_parent"-->
@@ -100,13 +112,16 @@
         <com.gordonwong.materialsheetfab.DimOverlayFrameLayout
             android:id="@+id/overlay"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:visibility="gone"
+        />
 
         <io.codetail.widget.RevealLinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="end|bottom"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:visibility="gone">
 
             <android.support.design.widget.NavigationView
                 android:id="@+id/sheetView"
