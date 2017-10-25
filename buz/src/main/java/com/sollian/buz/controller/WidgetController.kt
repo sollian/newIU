@@ -34,8 +34,8 @@ class WidgetController : AbsController() {
         return if (widgets.isNotEmpty()) {
             val widget = widgets[0]
             val articleIds = widget.articleIds.split(Widget.SPLITTER);
-            val articles = ArticleController().queryByIds(*kotlin.IntArray(articleIds.size) {
-                articleIds[it].toInt()
+            val articles = ArticleController().queryByIds(articleIds.map {
+                it.toInt()
             })
             if (articleIds.size == articles.size) widget else null
         } else null

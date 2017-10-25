@@ -144,7 +144,7 @@ class ArticleController : AbsController() {
                 }
     }
 
-    fun queryByIds(vararg ids: Int) = ArticleDB.queryByIds(*ids)
+    fun queryByIds(ids: List<Int>) = ArticleDB.queryByIds(ids)
 
     fun markRead(id: Int) {
         val article = ArticleDB.queryById(id)
@@ -160,6 +160,15 @@ class ArticleController : AbsController() {
             article.setCollected(isCollected)
             ArticleDB.update(article)
         }
+    }
+
+    fun clearCollected(ids: List<Int>) {
+        val articles = ArticleDB.queryByIds(ids)
+        articles.forEach {
+            it.setCollected(false)
+        }
+        if (articles.isNotEmpty())
+            ArticleDB.update(articles)
     }
 
     fun syncQueryCollected(page: Int, limit: Int): List<Article> {

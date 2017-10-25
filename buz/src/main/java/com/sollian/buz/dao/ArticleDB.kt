@@ -15,7 +15,7 @@ object ArticleDB : AbsDB() {
                 .unique()
     }
 
-    fun queryByIds(vararg ids: Int): List<Article> {
+    fun queryByIds(ids: List<Int>): List<Article> {
         return db().queryBuilder()
                 .where(ArticleDao.Properties.Id.`in`(ids))
                 .list()

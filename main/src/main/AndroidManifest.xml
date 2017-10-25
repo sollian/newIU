@@ -34,7 +34,9 @@
         <activity android:name=".activity.SignActivity" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.AboutActivity" />
-        <activity android:name=".activity.UserInfoActivity">
+        <activity android:name=".activity.UserInfoActivity"
+                  android:theme="@style/AppTheme.AppBarOverlay"
+        >
         </activity>
     </application>
 

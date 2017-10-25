@@ -27,6 +27,7 @@
     <string name="write">发帖</string>
     <string name="send_mail">写信</string>
     <string name="all_mark_read">全部标为已读</string>
+    <string name="clear">清空</string>
 
     <string name="voted">已投</string>
     <string name="terminated">已截止</string>
@@ -41,4 +42,23 @@
     <string name="vote_all">全部投票</string>
 
     <string name="empty">无内容</string>
+    <string name="no_user">用户不存在</string>
+
+    <string name="base_info">基本信息</string>
+    <string name="sex">性别：</string>
+    <string name="astro">星座：</string>
+    <string name="qq">QQ：</string>
+    <string name="msn">MSN：</string>
+    <string name="home_page">首页：</string>
+    <string name="forum_info">论坛属性</string>
+    <string name="forum_level">论坛等级：</string>
+    <string name="life">生命值：</string>
+    <string name="score">积分：</string>
+    <string name="post_count">发文数量：</string>
+    <string name="is_online">是否在线：</string>
+    <string name="role">用户身份：</string>
+    <string name="first_login_time">注册时间：</string>
+    <string name="last_login_time">上次登录时间：</string>
+    <string name="login_count">登录次数：</string>
+
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="theme">#436EEE</color>
+    <color name="theme_transparent">#00436EEE</color>
     <color name="accent">#436EEE</color>
     <color name="accent_light">#cc436EEE</color>
     <color name="bg_common">#F1F2F5</color>

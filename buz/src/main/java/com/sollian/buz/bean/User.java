@@ -1,5 +1,8 @@
 package com.sollian.buz.bean;
 
+import com.sollian.base.Utils.BaseContext;
+import com.sollian.buz.R;
+
 import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
@@ -260,6 +263,20 @@ public class User {
 
     public boolean getIs_online() {
         return this.is_online;
+    }
+
+    public String getSex() {
+        if ("f".equalsIgnoreCase(gender)) {
+            return BaseContext.Companion.getContext().getString(R.string.female);
+        } else if ("m".equalsIgnoreCase(gender)) {
+            return BaseContext.Companion.getContext().getString(R.string.male);
+        } else {
+            return BaseContext.Companion.getContext().getString(R.string.privary);
+        }
+    }
+
+    public String getOnline() {
+        return BaseContext.Companion.getContext().getString(is_online ? R.string.yes : R.string.no);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.sollian.iu.presenter
 
 import android.support.v7.widget.RecyclerView
+import android.view.MenuItem
 import com.sollian.base.Utils.IUUtil
 import com.sollian.buz.bean.Article
 import com.sollian.buz.bean.User
@@ -8,6 +9,9 @@ import com.sollian.buz.controller.ArticleController
 import com.sollian.iu.R
 import com.sollian.iu.activity.MainActivity
 import com.sollian.iu.adapter.CollectAdapter
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 /**
@@ -55,6 +59,32 @@ class CollectPresenter(page: MainActivity) : AbsMainPresenter(page) {
     override fun getTitle(): String = page.getString(R.string.collect)
 
     override fun getType() = TYPE_COLLECT
+
+    override fun getMenuResId() = R.menu.menu_collect
+    override fun onMenuClick(item: MenuItem) {
+        super.onMenuClick(item)
+        when (item.itemId) {
+            R.id.menu_clear -> {
+                Observable.create<Boolean> {
+                    articleController.clearCollected(
+                            articles.map {
+                                it.id
+                            })
+                    it.onNext(true)
+                }
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe {
+                            articles.clear()
+                            adapter.setData(articles)
+                            page.onNotifyDataChanged(this)
+                        }
+            }
+            else -> {
+
+            }
+        }
+    }
 
     private fun mockArticles(): List<Article> {
 

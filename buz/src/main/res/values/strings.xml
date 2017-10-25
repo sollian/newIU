@@ -1,4 +1,11 @@
 <resources>
     <string name="unknown_error">未知错误</string>
     <string name="invalid_user">原贴已删除</string>
+
+    <string name="male">男</string>
+    <string name="female">女</string>
+    <string name="privary">保密</string>
+
+    <string name="yes">是</string>
+    <string name="no">否</string>
 </resources>

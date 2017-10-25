@@ -74,12 +74,27 @@ public final class IUUtil {
             @NonNull
                     String str) {
         int i = str.hashCode();
-        String color = "#" +
-//                ensureLength(Integer.toHexString(i >> 24 & 0xFF)) +
+        String color = '#' +
+                //                ensureLength(Integer.toHexString(i >> 24 & 0xFF)) +
                 ensureLength(Integer.toHexString(i >> 16 & 0xFF)) +
                 ensureLength(Integer.toHexString(i >> 8 & 0xFF)) +
                 ensureLength(Integer.toHexString(i & 0xFF));
         return Color.parseColor(color);
+    }
+
+    /**
+     * Blend {@code color1} and {@code color2} using the given ratio.
+     *
+     * @param ratio of which to blend. 0.0 will return {@code color1}, 0.5 will give an even blend,
+     * 1.0 will return {@code color2}.
+     */
+    public static int blendColors(int color1, int color2, float ratio) {
+        float inverseRatio = 1.0f - ratio;
+        float a = Color.alpha(color1) * inverseRatio + Color.alpha(color2) * ratio;
+        float r = Color.red(color1) * inverseRatio + Color.red(color2) * ratio;
+        float g = Color.green(color1) * inverseRatio + Color.green(color2) * ratio;
+        float b = Color.blue(color1) * inverseRatio + Color.blue(color2) * ratio;
+        return Color.argb((int) a, (int) r, (int) g, (int) b);
     }
 
     private static String ensureLength(String str) {
