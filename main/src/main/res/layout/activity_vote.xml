@@ -74,8 +74,6 @@
                     android:id="@+id/multiCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginStart="10dp"
                     android:textColor="@color/text_second"
                     android:textSize="@dimen/text_14"
                     app:layout_constraintBottom_toBottomOf="@+id/head"
@@ -96,14 +94,14 @@
 
                 <TextView
                     android:id="@+id/subject"
-                    android:layout_width="match_parent"
+                    android:layout_width="334dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="首先这只猫是在上学期的时候过来的。也不可能说来了只猫大家就把它赶走。"
                     android:textColor="@color/text_second"
                     android:textSize="@dimen/text_14"
                     app:layout_constraintTop_toBottomOf="@+id/title"
-                />
+                    tools:layout_editor_absoluteX="8dp" />
             </android.support.constraint.ConstraintLayout>
 
 
@@ -124,7 +122,7 @@
                         android:id="@+id/back"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:paddingLeft="@dimen/title_btn_padding"
+                        android:padding="@dimen/title_btn_padding"
                         android:src="@drawable/ic_back"
                     />
 
