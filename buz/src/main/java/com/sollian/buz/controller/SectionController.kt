@@ -1,7 +1,10 @@
 package com.sollian.buz.controller
 
+import com.sollian.buz.bean.Section
+import com.sollian.buz.dao.SectionDB
 import com.sollian.buz.response.SectionResponse
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 /**
  * @author solli on 2017/9/24.
@@ -17,9 +20,19 @@ class SectionController : AbsController() {
      */
     fun asyncGetRoot(consumer: ((response: SectionResponse) -> Unit)?) {
         getObservable(API_SECTION + FORMAT + '?' + APP_KEY)
+                .observeOn(Schedulers.io())
+                .map {
+                    val sectionResponse = SectionResponse(getJson(it))
+                    if (sectionResponse.success()) {
+                        sectionResponse.obj!!.section.forEach {
+                            //TODO:
+                        }
+                    }
+                    sectionResponse
+                }
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { response ->
-                    consumer?.invoke(SectionResponse(getJson(response)))
+                .subscribe {
+                    consumer?.invoke(it)
                 }
     }
 
@@ -35,4 +48,13 @@ class SectionController : AbsController() {
                     consumer?.invoke(SectionResponse(getJson(response)))
                 }
     }
+
+    fun syncGetRoot(): List<Section> {
+        val sections = SectionDB.queryRoot()
+        sections.forEach {
+            //TODO:
+        }
+        return sections
+    }
+
 }

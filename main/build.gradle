@@ -57,4 +57,5 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.1.1'
 
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+    compile 'com.romainpiel.shimmer:library:1.4.0@aar'
 }
