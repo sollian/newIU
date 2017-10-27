@@ -42,35 +42,35 @@ abstract class ReferPresenter(page: MainActivity) : AbsMainPresenter(page) {
         curPage = DEFAULT_PAGE
         referController.asyncGet(referType, curPage) {
             if (!it.success()) {
-                page.toast(it.desc!!)
+                getContext()?.toast(it.desc!!)
             } else {
                 totalPage = it.obj!!.pagination.page_all_count
                 refers.clear()
                 refers.addAll(it.obj!!.article)
             }
-            page.onNotifyDataChanged(this)
+            getContext()?.onNotifyDataChanged(this)
         }
     }
 
     override fun onNextPage() {
         referController.asyncGet(referType, curPage + 1) {
             if (!it.success()) {
-                page.toast(it.desc!!)
+                getContext()?.toast(it.desc!!)
             } else {
                 curPage = it.obj!!.pagination.page_current_count
                 totalPage = it.obj!!.pagination.page_all_count
                 refers.removeAll(it.obj!!.article)
                 refers.addAll(it.obj!!.article)
             }
-            page.onNotifyDataChanged(this)
+            getContext()?.onNotifyDataChanged(this)
         }
     }
 
     override fun hasNextPage() = curPage < totalPage
 
     override fun getTitle(): String? = when (getType()) {
-        TYPE_REPLY -> page.getString(R.string.reply_me)
-        TYPE_AT -> page.getString(R.string.at_me)
+        TYPE_REPLY -> getContext()!!.getString(R.string.reply_me)
+        TYPE_AT -> getContext()!!.getString(R.string.at_me)
         else -> {
             null
         }

@@ -32,12 +32,12 @@ class WidgetPresenter(page: MainActivity) : AbsMainPresenter(page) {
     override fun onRefresh() {
         widgetController.asyncGet {
             if (!it.success()) {
-                page.toast(it.desc!!)
+                getContext()?.toast(it.desc!!)
             } else {
                 widget = it.obj
                 adapter.setData(widget?.article)
             }
-            page.onNotifyDataChanged(this)
+            getContext()?.onNotifyDataChanged(this)
         }
     }
 

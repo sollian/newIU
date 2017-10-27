@@ -1,5 +1,7 @@
 package com.sollian.buz.bean;
 
+import com.sollian.base.annotation.Local;
+
 /**
  * @author sollian on 2017/9/20.
  */
@@ -168,6 +170,10 @@ public class Vote {
         return type == 1;
     }
 
+    public boolean canVote() {
+        return !(didVoted() || is_end);
+    }
+
     /**
      * 投票选项元数据
      *
@@ -175,16 +181,14 @@ public class Vote {
      */
     public static class Option {
         // 投票选项标识id
-        private int    viid;
+        private int     viid;
         // 选项内容
-        private String label;
+        private String  label;
         // 该选项为已投票数，如果设置投票后可见且还没投票这个值为-1
-        private int    num;
-        private double num_relative;
-
-        /**
-         * 附加——该选项是否被选中
-         */
+        private int     num;
+        @Local
+        private float   num_relative;
+        @Local
         private boolean isChecked;
 
         public int getViid() {
@@ -211,11 +215,11 @@ public class Vote {
             this.num = num;
         }
 
-        public double getNum_relative() {
+        public float getNum_relative() {
             return num_relative;
         }
 
-        public void setNum_relative(double num_relative) {
+        public void setNum_relative(float num_relative) {
             this.num_relative = num_relative;
         }
 

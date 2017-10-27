@@ -38,14 +38,14 @@ abstract class AbsMainPresenter(page: MainActivity) : BasePresenter<MainActivity
     open fun onNextPage() {}
     open fun hasNextPage() = false
 
-    open fun getThemeColor() = page.resources.getColor(R.color.theme)
+    open fun getThemeColor() = getContext()!!.resources.getColor(R.color.theme)
 
     abstract fun getTitle(): String?
     open fun getMenuResId() = 0
-    open fun getMenuItemIconTintList(): ColorStateList = page.resources.getColorStateList(R.color.widget_selector)
+    open fun getMenuItemIconTintList(): ColorStateList = getContext()!!.resources.getColorStateList(R.color.widget_selector)
     @CallSuper
     open fun onMenuClick(item: MenuItem) {
-        page.onHideMenu()
+        getContext()!!.onHideMenu()
     }
 
     fun onClickMore() {

@@ -12,6 +12,7 @@ import com.sollian.buz.bean.User
 import com.sollian.buz.bean.Vote
 import com.sollian.iu.R
 import com.sollian.iu.activity.UserInfoActivity
+import com.sollian.iu.activity.VoteContentActivity
 import com.sollian.iu.utils.GlideUtil
 import de.hdodenhof.circleimageview.CircleImageView
 import org.jetbrains.anko.find
@@ -67,7 +68,9 @@ class VoteAdapter(
             R.id.root -> {
                 val position = v.tag as Int
                 val vote = getItem(position)
-                //TODO:
+                val intent = Intent(context, VoteContentActivity::class.java)
+                intent.putExtra(VoteContentActivity.KEY_VOTE_ID, vote.vid)
+                context.startActivity(intent)
             }
             R.id.head -> {
                 val user = v.getTag(R.id.tag) as User

@@ -42,19 +42,19 @@ class LoadPresenter(page: LoadActivity) : BasePresenter<LoadActivity>(page) {
     }
 
     private fun tryJump(toMain: Boolean) {
-        page.checkPermission(permissions, object : IPermissionCallback {
+        getContext()!!.checkPermission(permissions, object : IPermissionCallback {
             override fun onCheckPermission(failedPermissions: List<String>) {
                 if (failedPermissions.isEmpty()) {
                     BaseContext.initWithPermissions()
 
                     val intent: Intent =
-                            if (toMain) Intent(page, MainActivity::class.java)
-                            else Intent(page, SignActivity::class.java)
-                    page.startActivity(intent)
-                    page.finish()
+                            if (toMain) Intent(getContext(), MainActivity::class.java)
+                            else Intent(getContext(), SignActivity::class.java)
+                    getContext()!!.startActivity(intent)
+                    getContext()!!.finish()
                 } else {
-                    page.toast(R.string.no_storage_permission)
-                    page.finish()
+                    getContext()!!.toast(R.string.no_storage_permission)
+                    getContext()!!.finish()
                 }
             }
         })

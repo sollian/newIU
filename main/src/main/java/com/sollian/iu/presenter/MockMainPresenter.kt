@@ -39,7 +39,7 @@ class MockMainPresenter(page: MainActivity) : AbsMainPresenter(page) {
                     data.clear()
                     data += 0..20
                     upper = 20
-                    page.onNotifyDataChanged(this)
+                    getContext()?.onNotifyDataChanged(this)
                 }
     }
 
@@ -49,7 +49,7 @@ class MockMainPresenter(page: MainActivity) : AbsMainPresenter(page) {
                 .subscribe {
                     data += upper + 1..upper + 20
                     upper += 20
-                    page.onNotifyDataChanged(this)
+                    getContext()?.onNotifyDataChanged(this)
                 }
     }
 
@@ -62,7 +62,7 @@ class MockMainPresenter(page: MainActivity) : AbsMainPresenter(page) {
         override fun getItemCount() = data.size
 
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MockHolder {
-            val root = LayoutInflater.from(page).inflate(android.R.layout.simple_list_item_1, parent, false)
+            val root = LayoutInflater.from(getContext()?.getContext()).inflate(android.R.layout.simple_list_item_1, parent, false)
             return MockHolder(root)
         }
 

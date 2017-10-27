@@ -35,33 +35,33 @@ class MailPresenter(page: MainActivity) : AbsMainPresenter(page) {
         curPage = DEFAULT_PAGE
         mailController.asyncGetBox(Mailbox.INBOX, curPage) {
             if (!it.success()) {
-                page.toast(it.desc!!)
+                getContext()?.toast(it.desc!!)
             } else {
                 totalPage = it.obj!!.pagination.page_all_count
                 mails.clear()
                 mails.addAll(it.obj!!.mail)
             }
-            page.onNotifyDataChanged(this)
+            getContext()?.onNotifyDataChanged(this)
         }
     }
 
     override fun onNextPage() {
         mailController.asyncGetBox(Mailbox.INBOX, curPage + 1) {
             if (!it.success()) {
-                page.toast(it.desc!!)
+                getContext()?.toast(it.desc!!)
             } else {
                 totalPage = it.obj!!.pagination.page_all_count
                 curPage = it.obj!!.pagination.page_current_count
                 mails.removeAll(it.obj!!.mail)
                 mails.addAll(it.obj!!.mail)
             }
-            page.onNotifyDataChanged(this)
+            getContext()?.onNotifyDataChanged(this)
         }
     }
 
     override fun hasNextPage() = curPage < totalPage
 
-    override fun getTitle(): String? = page.getString(R.string.mail)
+    override fun getTitle(): String? = getContext()!!.getString(R.string.mail)
 
     override fun getMenuResId() = R.menu.menu_mail
     override fun onMenuClick(item: MenuItem) {

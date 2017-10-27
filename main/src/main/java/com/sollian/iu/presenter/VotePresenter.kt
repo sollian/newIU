@@ -37,33 +37,33 @@ class VotePresenter(page: MainActivity) : AbsMainPresenter(page) {
         curPage = DEFAULT_PAGE
         voteController.asyncGetList(type, curPage) {
             if (!it.success()) {
-                page.toast(it.desc!!)
+                getContext()?.toast(it.desc!!)
             } else {
                 totalPage = it.obj!!.pagination.page_all_count
                 votes.clear()
                 votes.addAll(it.obj!!.votes)
             }
-            page.onNotifyDataChanged(this)
+            getContext()?.onNotifyDataChanged(this)
         }
     }
 
     override fun onNextPage() {
         voteController.asyncGetList(Mailbox.INBOX, curPage + 1) {
             if (!it.success()) {
-                page.toast(it.desc!!)
+                getContext()?.toast(it.desc!!)
             } else {
                 totalPage = it.obj!!.pagination.page_all_count
                 curPage = it.obj!!.pagination.page_current_count
                 votes.removeAll(it.obj!!.votes)
                 votes.addAll(it.obj!!.votes)
             }
-            page.onNotifyDataChanged(this)
+            getContext()?.onNotifyDataChanged(this)
         }
     }
 
     override fun hasNextPage() = curPage < totalPage
 
-    override fun getTitle(): String? = page.getString(R.string.vote)
+    override fun getTitle(): String? = getContext()!!.getString(R.string.vote)
 
     override fun getMenuResId() = R.menu.menu_vote
     override fun onMenuClick(item: MenuItem) {

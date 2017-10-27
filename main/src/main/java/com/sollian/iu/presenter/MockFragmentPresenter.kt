@@ -29,7 +29,7 @@ class MockFragmentPresenter(page: MockFragment) : BasePresenter<MockFragment>(pa
         override fun getItemCount() = data.size
 
         override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MockHolder {
-            val root = LayoutInflater.from(page.context).inflate(android.R.layout.simple_list_item_1, parent, false)
+            val root = LayoutInflater.from(getContext()!!.context).inflate(android.R.layout.simple_list_item_1, parent, false)
             return MockHolder(root)
         }
 

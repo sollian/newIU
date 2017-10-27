@@ -3,4 +3,6 @@
     <dimen name="margin_user_info">15dp</dimen>
     <dimen name="padding_user_info">5dp</dimen>
     <dimen name="text_user_info">@dimen/text_17</dimen>
+
+    <dimen name="title_btn_padding">5dp</dimen>
 </resources>

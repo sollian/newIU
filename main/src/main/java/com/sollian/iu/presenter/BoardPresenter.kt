@@ -45,27 +45,27 @@ open class BoardPresenter(page: MainActivity) : AbsMainPresenter(page) {
         curPage = DEFAULT_PAGE
         boardController.asyncGet(board!!.name, curPage) {
             if (!it.success()) {
-                page.toast(it.desc!!)
+                getContext()?.toast(it.desc!!)
             } else {
                 totalPage = it.obj!!.pagination.page_all_count
                 articles.clear()
                 articles.addAll(it.obj!!.article)
             }
-            page.onNotifyDataChanged(this)
+            getContext()?.onNotifyDataChanged(this)
         }
     }
 
     override fun onNextPage() {
         boardController.asyncGet(board!!.name, curPage + 1) {
             if (!it.success()) {
-                page.toast(it.desc!!)
+                getContext()?.toast(it.desc!!)
             } else {
                 totalPage = it.obj!!.pagination.page_all_count
                 curPage = it.obj!!.pagination.page_current_count
                 articles.removeAll(it.obj!!.article)
                 articles.addAll(it.obj!!.article)
             }
-            page.onNotifyDataChanged(this)
+            getContext()?.onNotifyDataChanged(this)
         }
     }
 
@@ -78,7 +78,7 @@ open class BoardPresenter(page: MainActivity) : AbsMainPresenter(page) {
     override fun getMenuResId() = R.menu.menu_board
     override fun getMenuItemIconTintList(): ColorStateList {
         val colors = intArrayOf(getThemeColor(),
-                page.resources.getColor(R.color.widget_normal))
+                getContext()!!.resources.getColor(R.color.widget_normal))
         val statePress = intArrayOf(android.R.attr.state_pressed)
         val stateNormal = intArrayOf()
         val states = arrayOf(statePress, stateNormal)

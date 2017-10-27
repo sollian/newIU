@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/bg_white"
+    android:descendantFocusability="blocksDescendants"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/text_first"
+        android:textSize="@dimen/text_15"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/radioButton"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="111111111111111111111111111111111111111111111111111" />
+
+    <com.akexorcist.roundcornerprogressbar.TextRoundCornerProgressBar
+        android:id="@+id/progress"
+        android:layout_width="0dp"
+        android:layout_height="25dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintLeft_toLeftOf="@+id/desc"
+        app:layout_constraintRight_toRightOf="@+id/desc"
+        app:layout_constraintTop_toBottomOf="@+id/desc"
+        app:rcBackgroundColor="@color/bg_common"
+        app:rcBackgroundPadding="3dp"
+        app:rcMax="100"
+        app:rcRadius="11dp" />
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/checkbox"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"
+    />
+
+    <CheckBox
+        android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"
+    />
+</android.support.constraint.ConstraintLayout>

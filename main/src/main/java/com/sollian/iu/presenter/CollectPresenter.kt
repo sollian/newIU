@@ -51,12 +51,12 @@ class CollectPresenter(page: MainActivity) : AbsMainPresenter(page) {
         hasNextPage = list.size >= itemCountPerPage
         articles.addAll(list)
         adapter.setData(articles)
-        page.onNotifyDataChanged(this)
+        getContext()?.onNotifyDataChanged(this)
     }
 
     override fun hasNextPage() = hasNextPage
 
-    override fun getTitle(): String = page.getString(R.string.collect)
+    override fun getTitle(): String = getContext()!!.getString(R.string.collect)
 
     override fun getType() = TYPE_COLLECT
 
@@ -77,7 +77,7 @@ class CollectPresenter(page: MainActivity) : AbsMainPresenter(page) {
                         .subscribe {
                             articles.clear()
                             adapter.setData(articles)
-                            page.onNotifyDataChanged(this)
+                            getContext()?.onNotifyDataChanged(this)
                         }
             }
             else -> {

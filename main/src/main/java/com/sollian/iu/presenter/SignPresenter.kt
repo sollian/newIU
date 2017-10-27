@@ -20,14 +20,14 @@ class SignPresenter(page: SignActivity) : BasePresenter<SignActivity>(page) {
     fun signIn(name: String, password: String) {
         IUHttpManager.getInstance().initUserInfo(name, password)
         userController.asyncLogin { response ->
-            page.onPostLogin(response.success())
+            getContext()?.onPostLogin(response.success())
             if (response.success()) {
                 SharePrefs.name = name
                 SharePrefs.password = password
-                page.startActivity(Intent(page, MainActivity::class.java))
-                page.finish()
+                getContext()?.startActivity(Intent(getContext(), MainActivity::class.java))
+                getContext()?.finish()
             } else {
-                page.toast(response.desc!!)
+                getContext()?.toast(response.desc!!)
             }
         }
     }
